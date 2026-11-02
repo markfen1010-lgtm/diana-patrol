@@ -1868,7 +1868,459 @@
             gap: 8px;
             padding-bottom: 30px;
         }
-    </style>
+    
+/* ========================================================================== */
+/* DIANA PATROL AI ASSISTANTS & ADMIN STYLES (NETFLIX DARK CINEMA)            */
+/* ========================================================================== */
+
+/* --- Floating Paw FAB (Site Guide) --- */
+.ai-guide-fab {
+    position: fixed;
+    bottom: 84px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.45), 0 2px 6px rgba(0,0,0,0.6);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 1050;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.ai-guide-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 26px rgba(229, 9, 20, 0.6);
+}
+.ai-guide-fab:active {
+    transform: scale(0.94);
+}
+.ai-guide-fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #00e676;
+    color: #080808;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 2px solid #080808;
+    letter-spacing: 0.5px;
+}
+
+/* --- Guide Drawer / Bottom Sheet --- */
+.guide-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.guide-drawer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.guide-drawer-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
+    max-width: 440px;
+    height: 82vh;
+    max-height: 640px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+    transform: translateY(100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+@media (min-width: 768px) {
+    .guide-drawer-overlay {
+        align-items: flex-end;
+        padding-right: 24px;
+        padding-bottom: 24px;
+    }
+    .guide-drawer-card {
+        border-radius: 16px;
+        height: 580px;
+        transform: translateY(40px) scale(0.96);
+    }
+    .guide-drawer-overlay.active .guide-drawer-card {
+        transform: translateY(0) scale(1);
+    }
+}
+.guide-drawer-overlay.active .guide-drawer-card {
+    transform: translateY(0);
+}
+.guide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.guide-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #F5F5F1;
+}
+.guide-close-btn {
+    background: none;
+    border: none;
+    color: #8c8c8c;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 6px;
+    transition: color 0.15s;
+}
+.guide-close-btn:hover { color: #fff; }
+.guide-chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.guide-chips-scroll {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px 14px;
+    background: #111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    scrollbar-width: none;
+}
+.guide-chips-scroll::-webkit-scrollbar { display: none; }
+.guide-chip {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ddd;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.guide-chip:hover {
+    background: rgba(229, 9, 20, 0.2);
+    border-color: #E50914;
+    color: #fff;
+}
+.guide-bubble-assistant {
+    align-self: flex-start;
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3px solid #E50914;
+    border-radius: 12px;
+    padding: 12px 14px;
+    max-width: 90%;
+    color: #f0f0f0;
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+.guide-bubble-user {
+    align-self: flex-end;
+    background: #E50914;
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    max-width: 85%;
+    font-size: 13.5px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+.guide-nav-action-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    background: rgba(229, 9, 20, 0.15);
+    border: 1px solid #E50914;
+    color: #ff8585;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.guide-nav-action-pill:hover {
+    background: #E50914;
+    color: #fff;
+}
+.guide-input-wrap {
+    padding: 12px;
+    background: #161616;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.guide-input-box {
+    flex: 1;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 10px 16px;
+    color: #fff;
+    font-size: 13.5px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.guide-input-box:focus {
+    border-color: #E50914;
+}
+.guide-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #E50914;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+.guide-send-btn:hover { transform: scale(1.06); }
+
+/* --- AI Analyst Screen (#tab-ai-analyst) --- */
+.analyst-container {
+    padding: 0 16px 80px 16px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+.analyst-hero-card {
+    background: linear-gradient(135deg, #1f0b0d 0%, #171717 100%);
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+.analyst-quota-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    background: rgba(0, 230, 118, 0.15);
+    border: 1px solid rgba(0, 230, 118, 0.4);
+    color: #00e676;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.analyst-quick-chips {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 12px 0;
+    scrollbar-width: none;
+}
+.analyst-quick-chips::-webkit-scrollbar { display: none; }
+.analyst-chip {
+    flex-shrink: 0;
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.analyst-chip:hover {
+    border-color: #E50914;
+    color: #fff;
+    background: rgba(229, 9, 20, 0.15);
+}
+.analyst-compare-box {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+.analyst-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+@media (max-width: 580px) {
+    .analyst-compare-grid { grid-template-columns: 1fr; }
+}
+.analyst-select {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #eee;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+.analyst-chat-history {
+    background: #101010;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    min-height: 380px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.analyst-msg-user {
+    align-self: flex-end;
+    background: #202020;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px 14px 2px 14px;
+    padding: 12px 16px;
+    max-width: 82%;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.analyst-msg-ai {
+    align-self: flex-start;
+    background: #181818;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #E50914;
+    border-radius: 14px 14px 14px 2px;
+    padding: 16px 18px;
+    max-width: 95%;
+    color: #f2f2f2;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.analyst-citation-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(229, 9, 20, 0.15);
+    border: 1px solid rgba(229, 9, 20, 0.5);
+    color: #ff9999;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 2px 4px;
+    transition: all 0.15s ease;
+}
+.analyst-citation-pill:hover {
+    background: #E50914;
+    color: #fff;
+}
+.analyst-input-card {
+    background: #171717;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+.analyst-textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+    outline: none;
+    resize: none;
+    min-height: 44px;
+    max-height: 120px;
+    padding: 8px 4px;
+    font-family: inherit;
+}
+
+/* --- Admin Panel Screen (#tab-admin) --- */
+.admin-subnav-bar {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0 16px 0;
+    scrollbar-width: none;
+}
+.admin-subnav-bar::-webkit-scrollbar { display: none; }
+.admin-pill {
+    flex-shrink: 0;
+    background: #181818;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #bbb;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.admin-pill.active {
+    background: #E50914;
+    color: #fff;
+    border-color: #E50914;
+    box-shadow: 0 2px 10px rgba(229, 9, 20, 0.4);
+}
+.admin-section {
+    display: none;
+}
+.admin-section.active {
+    display: block;
+}
+.admin-stat-card {
+    background: #171717;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: left;
+    transition: border-color 0.2s;
+}
+.admin-stat-card:hover {
+    border-color: rgba(229, 9, 20, 0.4);
+}
+.admin-stat-val {
+    font-size: 26px;
+    font-weight: 800;
+    color: #F5F5F1;
+    margin: 4px 0;
+}
+.admin-stat-lbl {
+    font-size: 12px;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+</style>
 </head>
 <body>
 
@@ -1949,6 +2401,7 @@
         <button class="pill-btn" id="pill-materials" onclick="switchTab('materials')">Матеріали</button>
         <button class="pill-btn" id="pill-hearings" onclick="switchTab('hearings')">Суд</button>
         <button class="pill-btn" id="pill-custom-search" onclick="switchTab('custom-search')">Радар</button>
+        <button class="pill-btn" id="pill-ai-analyst" onclick="switchTab('ai-analyst')">⚖️ ШІ-аналітик</button>
     </nav>
 
     <!-- ================================================================= -->
@@ -2762,7 +3215,246 @@
             </div>
         </section>
 
-    </main>
+    
+        <!-- ============================================================= -->
+        <!-- TAB 9: ШІ-АНАЛІТИК СПРАВИ (LEGAL AI ANALYST)                -->
+        <!-- ============================================================= -->
+        <section id="tab-ai-analyst" class="tab-panel">
+            <div class="analyst-container">
+                
+                <!-- Hero Header -->
+                <div class="analyst-hero-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
+                        <div>
+                            <span class="hero-category" style="color: #ff8585;">RAG-СИСТЕМА ЗАХИСТУ ВАКС</span>
+                            <h1 style="font-size: 24px; font-weight: 800; color: #fff; margin: 4px 0;">Юридичний ШІ-аналітик</h1>
+                            <p style="color: #a0a0a0; font-size: 13.5px; margin: 0;">Аналіз 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та контраргументів захисту</p>
+                        </div>
+                        <div id="analyst-quota-badge" class="analyst-quota-pill">
+                            ⚡ Запитів сьогодні: <span id="analyst-quota-val">20 / 20</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Query Chips -->
+                    <div class="analyst-quick-chips">
+                        <span class="analyst-chip" onclick="quickAnalystQuery('Зроби повний правовий аналіз клопотання САП про заставу 150 млн грн та рішення слідчого судді ВАКС про зменшення до 20 млн грн.')">📋 Аналіз справи ВАКС</span>
+                        <span class="analyst-chip" onclick="quickAnalystQuery('Які документи обвинувачення стосуються огляду мобільних телефонів та що заявляв захист щодо порушення процедури?')">📱 Огляд телефонів</span>
+                        <span class="analyst-chip" onclick="quickAnalystQuery('Знайди головні суперечності між твердженнями прокурора САП та фактичними вилученими протоколами обшуку.')">⚠️ Пошук суперечностей</span>
+                        <span class="analyst-chip" onclick="quickAnalystQuery('Як сторона захисту спростувала ризики переховування та виїзду за кордон підозрюваної Мудрої І.Р.?')">🛡️ Спростування ризиків</span>
+                        <span class="analyst-chip" onclick="quickAnalystQuery('Поясни вимоги ст. 62 Конституції України та ст. 6 Конвенції ЄСПЛ щодо презумпції невинуватості у цій справі.')">⚖️ Стаття 62 КУ</span>
+                        <span class="analyst-chip" onclick="clearAnalystChat()" style="color: #ff7777; border-color: rgba(255, 119, 119, 0.3);">🗑️ Очистити діалог</span>
+                    </div>
+
+                    <!-- Compare Two Documents Accordion -->
+                    <div style="margin-top: 10px;">
+                        <button class="btn-netflix-secondary" style="font-size: 12.5px; padding: 6px 14px;" onclick="toggleDocCompareBar()">
+                            🔄 Порівняти два протоколи через ШІ...
+                        </button>
+                    </div>
+
+                    <div id="analyst-compare-collapse" style="display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+                        <div class="analyst-compare-grid">
+                            <div>
+                                <label style="font-size: 11.5px; color: #888; text-transform: uppercase; font-weight: 700;">Перший документ:</label>
+                                <select id="analyst-doc-1" class="analyst-select"></select>
+                            </div>
+                            <div>
+                                <label style="font-size: 11.5px; color: #888; text-transform: uppercase; font-weight: 700;">Другий документ:</label>
+                                <select id="analyst-doc-2" class="analyst-select"></select>
+                            </div>
+                        </div>
+                        <button class="btn-netflix-primary" style="font-size: 13px; padding: 8px 16px; width: 100%;" onclick="runDocumentCompare()">
+                            ⚡ Порівняти вибрані протоколи за допомогою ШІ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat History Window -->
+                <div id="analyst-chat-history" class="analyst-chat-history">
+                    <div class="analyst-msg-ai">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                            <span style="font-size: 18px;">⚖️</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний ШІ-аналітик</span>
+                            <span style="font-size: 11px; background: rgba(229,9,20,0.2); color: #ff9999; padding: 2px 6px; border-radius: 4px;">RAG ACTIVE</span>
+                        </div>
+                        <p style="margin: 0 0 8px 0;">Вітаю! Я спеціалізований юридичний ШІ-аналітик кримінального провадження ВАКС № 991/10659/26. Я маю прямий доступ до <b>36 процесуальних протоколів</b>, матеріалів судових засідань та правової позиції захисту.</p>
+                        <p style="margin: 0; font-size: 13px; color: #bbb;">Поставте будь-яке запитання про докази, протоколи обшуків, телефони, заставу чи оберіть швидкий запит вище.</p>
+                    </div>
+                </div>
+
+                <!-- Input Box -->
+                <div class="analyst-input-card">
+                    <textarea id="analyst-user-input" class="analyst-textarea" placeholder="Введіть запитання (наприклад: «Що заявляв захист щодо протоколу №12?») ..." onkeydown="handleAnalystKey(event)"></textarea>
+                    <button id="analyst-send-btn" class="guide-send-btn" onclick="sendAnalystMessage()" title="Надіслати запит">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================================= -->
+        <!-- TAB 10: ЗАХИЩЕНА АДМІНПАНЕЛЬ (DIANA PATROL — ADMIN)         -->
+        <!-- ============================================================= -->
+        <section id="tab-admin" class="tab-panel">
+            <div class="analyst-container">
+                
+                <!-- Admin Header -->
+                <div class="analyst-hero-card" style="background: linear-gradient(135deg, #181112 0%, #111 100%); border-color: rgba(229, 9, 20, 0.4);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 20px;">🔒</span>
+                                <h1 style="font-size: 22px; font-weight: 800; color: #fff; margin: 0;">Diana Patrol — Admin</h1>
+                                <span class="badge-status-online" style="font-size: 11px;">ПІДКЛЮЧЕНО</span>
+                            </div>
+                            <p style="color: #8c8c8c; font-size: 13px; margin: 4px 0 0 0;">Централізована панель керування конфігурацією, сервісами та квотами ШІ</p>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span id="admin-user-display" style="font-size: 12.5px; color: #ccc; background: #222; padding: 6px 12px; border-radius: 8px; border: 1px solid #333;">Користувач: admin</span>
+                            <button class="btn-netflix-secondary" style="font-size: 12px; padding: 6px 12px; border-color: #ff5555; color: #ff8585;" onclick="adminLogout()">🚪 Вийти</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Sub-Navigation Pills -->
+                <div class="admin-subnav-bar">
+                    <button class="admin-pill active" onclick="switchAdminSection('overview', this)">📊 Огляд системи</button>
+                    <button class="admin-pill" onclick="switchAdminSection('ai-config', this)">🤖 ШІ & Квоти</button>
+                    <button class="admin-pill" onclick="switchAdminSection('smtp', this)">✉️ Поштовий робот / SMTP</button>
+                    <button class="admin-pill" onclick="switchAdminSection('security', this)">🛡️ Безпека & Журнал</button>
+                </div>
+
+                <!-- SECTION 1: OVERVIEW -->
+                <div id="admin-sec-overview" class="admin-section active">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-lbl">Публікацій у Радарі</div>
+                            <div id="admin-stat-pubs" class="admin-stat-val">634</div>
+                            <div style="font-size: 11.5px; color: #00e676;">● 100% проіндексовано</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-lbl">Документів справи (RAG)</div>
+                            <div id="admin-stat-rag" class="admin-stat-val">37</div>
+                            <div style="font-size: 11.5px; color: #00e676;">● Всі 36 протоколів + ВАКС</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-lbl">Запитів до ШІ сьогодні</div>
+                            <div id="admin-stat-ai-today" class="admin-stat-val">0</div>
+                            <div style="font-size: 11.5px; color: #aaa;">Денний ліміт: 20 на користувача</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <div class="admin-stat-lbl">Розкладів / Логів пошти</div>
+                            <div id="admin-stat-schedules" class="admin-stat-val">2 / 14</div>
+                            <div style="font-size: 11.5px; color: #aaa;">Фоновий демон активний</div>
+                        </div>
+                    </div>
+
+                    <div class="netflix-card" style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px;">💾 Резервне копіювання бази даних</h3>
+                        <p style="font-size: 13px; color: #aaa; margin-bottom: 14px;">Завантажте повну копію файлу бази даних <code>monitoring.db</code> (включає публікації, розклади, налаштування та індекс RAG).</p>
+                        <a href="/api/admin/backup-db" class="btn-netflix-secondary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                            📥 Завантажити резервну копію (SQLite .db)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: AI CONFIG -->
+                <div id="admin-sec-ai-config" class="admin-section">
+                    <div class="netflix-card" style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">⚙️ Налаштування Google Gemini API</h3>
+                        
+                        <div style="margin-bottom: 14px;">
+                            <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 6px;">Модель для ШІ-аналітика справи:</label>
+                            <select id="admin-ai-analyst-model" class="analyst-select" style="max-width: 400px;">
+                                <option value="gemini-3.5-flash">gemini-3.5-flash (Рекомендовано — глибокий правовий аналіз)</option>
+                                <option value="gemini-flash-lite-latest">gemini-flash-lite-latest (Надшвидка 0.8s)</option>
+                                <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite (Швидка економна)</option>
+                                <option value="gemini-3.8-flash">gemini-3.8-flash (Остання флагманська версія)</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 14px;">
+                            <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 6px;">Модель для ШІ-гіда сайтом:</label>
+                            <select id="admin-ai-guide-model" class="analyst-select" style="max-width: 400px;">
+                                <option value="gemini-flash-lite-latest">gemini-flash-lite-latest (Рекомендовано — миттєва відповідь)</option>
+                                <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option>
+                                <option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 14px;">
+                            <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 6px;">Денний ліміт запитів на одного користувача (IP/сесію):</label>
+                            <input type="number" id="admin-ai-daily-limit" class="analyst-select" style="max-width: 200px;" value="20" min="1" max="500">
+                            <span style="font-size: 12px; color: #888; margin-left: 8px;">запитів на добу</span>
+                        </div>
+
+                        <div style="margin-bottom: 18px;">
+                            <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 6px;">Ключ Google Gemini API (Render Environment):</label>
+                            <input type="password" id="admin-ai-key-input" class="analyst-select" style="max-width: 400px;" placeholder="****** (Задано на Render)">
+                            <div style="font-size: 11.5px; color: #8c8c8c; margin-top: 4px;">Ключ підтримується через змінну <code>GEMINI_API_KEY</code> на Render. Залиште <code>******</code>, щоб не змінювати.</div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn-netflix-primary" onclick="saveAdminAiConfig()">💾 Зберегти налаштування ШІ</button>
+                            <button class="btn-netflix-secondary" onclick="triggerRagReindex()">🔄 Переіндексувати базу RAG (36 протоколів)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: SMTP & ROBOT -->
+                <div id="admin-sec-smtp" class="admin-section">
+                    <div class="netflix-card" style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">✉️ Керування поштовим роботом та SMTP</h3>
+                        <p style="font-size: 13px; color: #aaa; margin-bottom: 14px;">Налаштування поштового шлюзу, Google Apps Script релею та авторозкладів перенесено сюди із публічного інтерфейсу.</p>
+                        
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+                            <button class="btn-netflix-primary" onclick="openAdminSmtpModal()">⚙️ Відкрити налаштування SMTP / Webhook</button>
+                            <button class="btn-netflix-secondary" onclick="switchTab('email')">📅 Переглянути розклади та журнал</button>
+                            <button class="btn-netflix-secondary" onclick="triggerAdminMonitoringScan()">📡 Запустити цикл моніторингу зараз</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: SECURITY & LOGS -->
+                <div id="admin-sec-security" class="admin-section">
+                    <div class="netflix-card" style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">🔑 Зміна пароля адміністратора</h3>
+                        <div style="max-width: 400px;">
+                            <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 6px;">Новий пароль:</label>
+                            <input type="password" id="admin-new-pass" class="analyst-select" placeholder="Введіть новий надійний пароль" style="margin-bottom: 10px;">
+                            <button class="btn-netflix-primary" onclick="changeAdminPassword()">Зберегти новий пароль</button>
+                        </div>
+                    </div>
+
+                    <div class="netflix-card">
+                        <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">📋 Останні запити до ШІ (Аудит)</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid #333; color: #888; text-align: left;">
+                                        <th style="padding: 8px;">Час</th>
+                                        <th style="padding: 8px;">Асистент</th>
+                                        <th style="padding: 8px;">Прев'ю запиту</th>
+                                        <th style="padding: 8px;">Статус</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-ai-logs-tbody">
+                                    <tr><td colspan="4" style="padding: 12px; color: #888; text-align: center;">Завантаження журналу...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+</main>
 
     <!-- ================================================================= -->
     <!-- FIXED BOTTOM NAVIGATION BAR (5 ICONS AS IN MOCKUP) -->
@@ -2872,6 +3564,19 @@
                 <div class="tools-group-container" data-group="main">
                     <div class="sheet-group-label" style="letter-spacing: 1px;">ОСНОВНІ</div>
                     <div class="sheet-group-box">
+                        <!-- Legal AI Analyst -->
+                        <div class="sheet-item tool-searchable-item" onclick="switchTab('ai-analyst'); closeMoreMenu();">
+                            <div class="sheet-item-left">
+                                <div class="tools-item-icon-box">
+                                    <span style="font-size: 20px;">⚖️</span>
+                                </div>
+                                <div class="sheet-item-texts">
+                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #ff9999;">ШІ-аналітик справи</span>
+                                    <span class="sheet-item-sub">RAG-аналіз 36 протоколів ВАКС</span>
+                                </div>
+                            </div>
+                            <span class="sheet-chevron">›</span>
+                        </div>
                         <!-- Radar -->
                         <div class="sheet-item tool-searchable-item" onclick="switchTab('custom-search'); closeMoreMenu();">
                             <div class="sheet-item-left">
@@ -3013,7 +3718,16 @@
                     </div>
                     <div id="tools-accord-body-admin" class="tools-accordion-body open">
                         <div class="sheet-group-box">
-                            <div class="sheet-item tool-searchable-item" onclick="openAdminSmtpModal(); closeMoreMenu();">
+                            <div class="sheet-item tool-searchable-item" onclick="handleAdminMenuClick(); closeMoreMenu();">
+                                <div class="sheet-item-left">
+                                    <span class="sheet-item-icon">🔒</span>
+                                    <div class="sheet-item-texts">
+                                        <span class="sheet-item-title" style="color: #ff8585; font-weight: 700;">Панель адміністратора (Admin)</span>
+                                        <span class="sheet-item-sub">Захищене керування, ШІ, пошта та безпека</span>
+                                    </div>
+                                </div>
+                                <span class="sheet-chevron">›</span>
+                            </div>
                                 <div class="sheet-item-left">
                                     <span class="sheet-item-icon">⚙️</span>
                                     <div class="sheet-item-texts">
@@ -3246,7 +3960,11 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px;">
-                <button id="doc-modal-video-btn" class="btn-netflix-primary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
+                <button id="doc-modal-ai-btn" class="btn-netflix-secondary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(229,9,20,0.5); color: #ff9999;" onclick="triggerDocModalAiAnalysis()">
+                    <span style="font-size: 15px;">🤖</span>
+                    <span>Аналізувати через ШІ</span>
+                </button>
+                <button id="doc-modal-video-btn"  class="btn-netflix-primary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
@@ -5364,6 +6082,627 @@
                 toggleMoreMenu();
             }
         };
-    </script>
+    
+        // =====================================================================
+        // DIANA PATROL — AI ASSISTANTS & SECURE ADMIN CONTROLLER
+        // =====================================================================
+        let currentActiveTab = 'dashboard';
+        let currentModalDocNum = null;
+        let isGuideOpen = false;
+
+        // Enhanced switchTab wrapper
+        const originalSwitchTab = window.switchTab;
+        window.switchTab = function(tabId) {
+            currentActiveTab = tabId;
+            if (originalSwitchTab) {
+                originalSwitchTab(tabId);
+            } else {
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                const t = document.getElementById('tab-' + tabId);
+                if (t) t.classList.add('active');
+            }
+
+            // If navigating to admin or ai-analyst
+            if (tabId === 'ai-analyst') {
+                initAnalystView();
+            } else if (tabId === 'admin') {
+                initAdminView();
+            }
+
+            // Sync top pill active state
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            const activePill = document.getElementById('pill-' + tabId);
+            if (activePill) activePill.classList.add('active');
+        };
+
+        // --- 1. AI SITE GUIDE (PAW FAB) CONTROLLER ---
+        function toggleAiGuide() {
+            const drawer = document.getElementById('drawer-ai-guide');
+            if (!drawer) return;
+            isGuideOpen = !isGuideOpen;
+            if (isGuideOpen) {
+                drawer.classList.add('active');
+                setTimeout(() => {
+                    const inp = document.getElementById('guide-user-input');
+                    if (inp) inp.focus();
+                }, 150);
+            } else {
+                drawer.classList.remove('active');
+            }
+        }
+
+        function closeAiGuide(e) {
+            if (e && e.target && e.target.id === 'drawer-ai-guide') {
+                toggleAiGuide();
+            }
+        }
+
+        function quickGuideQuery(query) {
+            const inp = document.getElementById('guide-user-input');
+            if (inp) {
+                inp.value = query;
+                sendGuideMessage();
+            }
+        }
+
+        function handleGuideKey(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendGuideMessage();
+            }
+        }
+
+        function sendGuideMessage() {
+            const inp = document.getElementById('guide-user-input');
+            const stream = document.getElementById('guide-chat-stream');
+            if (!inp || !stream) return;
+            const text = inp.value.trim();
+            if (!text) return;
+
+            // Append user bubble
+            const userBubble = document.createElement('div');
+            userBubble.className = 'guide-bubble-user';
+            userBubble.textContent = text;
+            stream.appendChild(userBubble);
+            inp.value = '';
+
+            // Typing indicator
+            const typingBubble = document.createElement('div');
+            typingBubble.className = 'guide-bubble-assistant';
+            typingBubble.id = 'guide-typing-indicator';
+            typingBubble.innerHTML = '🐾 <i>Гід Diana Patrol шукає відповідь...</i>';
+            stream.appendChild(typingBubble);
+            stream.scrollTop = stream.scrollHeight;
+
+            // Fetch from backend
+            fetch('/api/ai/guide', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text, current_section: currentActiveTab })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const indicator = document.getElementById('guide-typing-indicator');
+                if (indicator) indicator.remove();
+
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'guide-bubble-assistant';
+
+                let replyHtml = (data.reply || '').replace(/\n/g, '<br>');
+                replyHtml = replyHtml.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+                // If buttons returned
+                let buttonsHtml = '';
+                if (data.buttons && data.buttons.length > 0) {
+                    buttonsHtml += '<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">';
+                    data.buttons.forEach(btn => {
+                        buttonsHtml += `<button class="guide-nav-action-pill" onclick="switchTab('${btn.action}'); toggleAiGuide();">${btn.label} &rarr;</button>`;
+                    });
+                    buttonsHtml += '</div>';
+                }
+
+                aiBubble.innerHTML = replyHtml + buttonsHtml;
+                stream.appendChild(aiBubble);
+                stream.scrollTop = stream.scrollHeight;
+            })
+            .catch(err => {
+                const indicator = document.getElementById('guide-typing-indicator');
+                if (indicator) indicator.remove();
+
+                const errBubble = document.createElement('div');
+                errBubble.className = 'guide-bubble-assistant';
+                errBubble.innerHTML = '⚠️ Помилка з\'єднання. Будь ласка, спробуйте ще раз або перейдіть до розділів у меню.';
+                stream.appendChild(errBubble);
+                stream.scrollTop = stream.scrollHeight;
+            });
+        }
+
+        // --- 2. LEGAL AI ANALYST CONTROLLER ---
+        function initAnalystView() {
+            populateDocSelects();
+            fetch('/api/ai/status')
+                .then(r => r.json())
+                .then(data => {
+                    const badge = document.getElementById('analyst-quota-val');
+                    if (badge) {
+                        badge.textContent = `${data.user_requests_left} / ${data.daily_limit_per_user}`;
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function populateDocSelects() {
+            const s1 = document.getElementById('analyst-doc-1');
+            const s2 = document.getElementById('analyst-doc-2');
+            if (!s1 || !s2 || s1.options.length > 0) return;
+
+            const docs = window.materialsData || [];
+            if (docs.length === 0) {
+                fetch('/api/materials')
+                    .then(r => r.json())
+                    .then(list => {
+                        window.materialsData = list;
+                        fillSelects(list);
+                    });
+            } else {
+                fillSelects(docs);
+            }
+
+            function fillSelects(list) {
+                list.forEach(item => {
+                    const opt1 = document.createElement('option');
+                    opt1.value = item.num;
+                    opt1.textContent = `№${item.num} - ${item.name.substring(0, 50)}...`;
+                    s1.appendChild(opt1);
+
+                    const opt2 = document.createElement('option');
+                    opt2.value = item.num;
+                    opt2.textContent = `№${item.num} - ${item.name.substring(0, 50)}...`;
+                    s2.appendChild(opt2);
+                });
+                if (s2.options.length > 1) s2.selectedIndex = 1;
+            }
+        }
+
+        function toggleDocCompareBar() {
+            const box = document.getElementById('analyst-compare-collapse');
+            if (box) {
+                box.style.display = box.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function runDocumentCompare() {
+            const s1 = document.getElementById('analyst-doc-1');
+            const s2 = document.getElementById('analyst-doc-2');
+            if (!s1 || !s2) return;
+            const d1 = parseInt(s1.value);
+            const d2 = parseInt(s2.value);
+            const query = `Порівняй процесуальний документ №${d1} та документ №${d2}. Знайди спільні відомості, розбіжності у датах та твердженнях, можливі суперечності та сформуй питання для перевірки.`;
+            sendAnalystMessage(query, null, [d1, d2]);
+        }
+
+        function quickAnalystQuery(text) {
+            const inp = document.getElementById('analyst-user-input');
+            if (inp) {
+                inp.value = text;
+                sendAnalystMessage();
+            }
+        }
+
+        function handleAnalystKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendAnalystMessage();
+            }
+        }
+
+        function clearAnalystChat() {
+            const history = document.getElementById('analyst-chat-history');
+            if (!history) return;
+            history.innerHTML = `
+                <div class="analyst-msg-ai">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span style="font-size: 18px;">⚖️</span>
+                        <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний ШІ-аналітик</span>
+                        <span style="font-size: 11px; background: rgba(229,9,20,0.2); color: #ff9999; padding: 2px 6px; border-radius: 4px;">RAG ACTIVE</span>
+                    </div>
+                    <p style="margin: 0;">Діалог очищено. Виберіть запит або введіть нове запитання щодо матеріалів справи.</p>
+                </div>
+            `;
+        }
+
+        function sendAnalystMessage(overrideText, currentDocId, compareDocIds) {
+            const inp = document.getElementById('analyst-user-input');
+            const history = document.getElementById('analyst-chat-history');
+            if (!history) return;
+
+            const text = overrideText || (inp ? inp.value.trim() : '');
+            if (!text) return;
+
+            // Append User message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'analyst-msg-user';
+            userDiv.textContent = text;
+            history.appendChild(userDiv);
+            if (inp && !overrideText) inp.value = '';
+
+            // Typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'analyst-msg-ai';
+            typingDiv.id = 'analyst-typing-indicator';
+            typingDiv.innerHTML = '⚖️ <i>ШІ-аналітик здійснює правовий пошук за матеріалами справи...</i>';
+            history.appendChild(typingDiv);
+            history.scrollTop = history.scrollHeight;
+
+            const payload = { message: text };
+            if (currentDocId) payload.current_doc_id = currentDocId;
+            if (compareDocIds) payload.compare_doc_ids = compareDocIds;
+
+            fetch('/api/ai/analyst', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(r => r.json())
+            .then(data => {
+                const ind = document.getElementById('analyst-typing-indicator');
+                if (ind) ind.remove();
+
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'analyst-msg-ai';
+
+                let raw = data.reply || '';
+                
+                // Format Markdown headings and bold
+                let formatted = raw
+                    .replace(/###\s*(.*?)\n/g, '<h4 style="color:#ff8585; margin:10px 0 4px 0; font-size:14.5px;">$1</h4>')
+                    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+                    .replace(/\n/g, '<br>');
+
+                // Convert citations [Джерело: Протокол №X] into clickable pills
+                formatted = formatted.replace(/\[Джерело:\s*Протокол\s*№?(\d+)[^\]]*\]/gi, function(match, num) {
+                    return `<span class="analyst-citation-pill" onclick="openDocModalByNum(${num})" title="Відкрити протокол №${num}">📌 Протокол №${num}</span>`;
+                });
+
+                // Add source badges at bottom if returned
+                if (data.sources && data.sources.length > 0) {
+                    formatted += '<div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: #888;"><b>Використані джерела:</b> ';
+                    data.sources.forEach(s => {
+                        formatted += `<span class="analyst-citation-pill" onclick="openDocModalByNum(${s.doc_num})">${s.citation}</span>`;
+                    });
+                    formatted += '</div>';
+                }
+
+                aiDiv.innerHTML = formatted;
+                history.appendChild(aiDiv);
+                history.scrollTop = history.scrollHeight;
+
+                // Update quota
+                if (typeof data.quota_left !== 'undefined') {
+                    const badge = document.getElementById('analyst-quota-val');
+                    if (badge) badge.textContent = `${data.quota_left} / 20`;
+                }
+            })
+            .catch(err => {
+                const ind = document.getElementById('analyst-typing-indicator');
+                if (ind) ind.remove();
+
+                const errDiv = document.createElement('div');
+                errDiv.className = 'analyst-msg-ai';
+                errDiv.innerHTML = '⚠️ Помилка виконання запиту до ШІ-аналітика. Перевірте з\'єднання або статус підключення Gemini API.';
+                history.appendChild(errDiv);
+                history.scrollTop = history.scrollHeight;
+            });
+        }
+
+        function triggerDocModalAiAnalysis() {
+            if (currentModalDocNum) {
+                closeDocModal();
+                switchTab('ai-analyst');
+                setTimeout(() => {
+                    const query = `Зроби вичерпний правовий аналіз процесуального документа №${currentModalDocNum}, виділи ключові факти обвинувачення, контраргументи захисту та норми КПК України для судового засідання.`;
+                    sendAnalystMessage(query, currentModalDocNum);
+                }, 200);
+            }
+        }
+
+        function openDocModalByNum(num) {
+            if (typeof openDocDetailModal === 'function') {
+                openDocDetailModal(num);
+            }
+        }
+
+        // --- 3. PROTECTED ADMIN PANEL & AUTH CONTROLLER ---
+        function handleAdminMenuClick() {
+            fetch('/api/auth/status')
+                .then(r => r.json())
+                .then(data => {
+                    if (data.authenticated) {
+                        switchTab('admin');
+                    } else {
+                        openAdminLogin();
+                    }
+                })
+                .catch(() => openAdminLogin());
+        }
+
+        function openAdminLogin() {
+            const modal = document.getElementById('modal-admin-login');
+            if (modal) modal.style.display = 'block';
+        }
+
+        function closeAdminLogin(e) {
+            if (e && e.target && e.target.id !== 'modal-admin-login') return;
+            const modal = document.getElementById('modal-admin-login');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function submitAdminLogin() {
+            const u = document.getElementById('admin-login-user').value.trim();
+            const p = document.getElementById('admin-login-pass').value.trim();
+            const errBox = document.getElementById('admin-login-error');
+            if (!u || !p) {
+                if (errBox) { errBox.style.display = 'block'; errBox.textContent = 'Введіть логін та пароль'; }
+                return;
+            }
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: u, password: p })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === 'SUCCESS') {
+                    closeAdminLogin();
+                    switchTab('admin');
+                } else {
+                    if (errBox) { errBox.style.display = 'block'; errBox.textContent = data.message || 'Невірний пароль'; }
+                }
+            })
+            .catch(() => {
+                if (errBox) { errBox.style.display = 'block'; errBox.textContent = 'Помилка мережі при вході'; }
+            });
+        }
+
+        function adminLogout() {
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => {
+                    switchTab('dashboard');
+                })
+                .catch(() => switchTab('dashboard'));
+        }
+
+        function switchAdminSection(secId, btn) {
+            document.querySelectorAll('.admin-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            const targetSec = document.getElementById('admin-sec-' + secId);
+            if (targetSec) targetSec.classList.add('active');
+
+            if (secId === 'overview') loadAdminOverview();
+        }
+
+        function initAdminView() {
+            loadAdminOverview();
+        }
+
+        function loadAdminOverview() {
+            fetch('/api/admin/overview')
+                .then(r => {
+                    if (r.status === 401) {
+                        openAdminLogin();
+                        throw new Error('Unauthorized');
+                    }
+                    return r.json();
+                })
+                .then(data => {
+                    if (data.status === 'SUCCESS') {
+                        const pubs = document.getElementById('admin-stat-pubs');
+                        if (pubs) pubs.textContent = data.publications_count;
+                        const rag = document.getElementById('admin-stat-rag');
+                        if (rag) rag.textContent = data.rag_documents_count;
+                        const ai = document.getElementById('admin-stat-ai-today');
+                        if (ai) ai.textContent = data.ai_queries_today;
+                        const sch = document.getElementById('admin-stat-schedules');
+                        if (sch) sch.textContent = `${data.schedules_count} / ${data.dispatch_logs_count}`;
+
+                        // Sync selects
+                        const aSel = document.getElementById('admin-ai-analyst-model');
+                        if (aSel && data.analyst_model) aSel.value = data.analyst_model;
+                        const gSel = document.getElementById('admin-ai-guide-model');
+                        if (gSel && data.guide_model) gSel.value = data.guide_model;
+                        const limitInp = document.getElementById('admin-ai-daily-limit');
+                        if (limitInp && data.daily_limit_per_user) limitInp.value = data.daily_limit_per_user;
+
+                        // Fill audit log table
+                        const tbody = document.getElementById('admin-ai-logs-tbody');
+                        if (tbody && data.recent_ai_logs) {
+                            if (data.recent_ai_logs.length === 0) {
+                                tbody.innerHTML = '<tr><td colspan="4" style="padding: 12px; color: #888; text-align: center;">Запитів до ШІ поки не зареєстровано</td></tr>';
+                            } else {
+                                let rowsHtml = '';
+                                data.recent_ai_logs.forEach(l => {
+                                    const stColor = l.status === 'SUCCESS' ? '#00e676' : '#ff5555';
+                                    rowsHtml += `<tr style="border-bottom: 1px solid #222;">
+                                        <td style="padding: 8px; color: #aaa; font-size: 11.5px;">${l.time.substring(5)}</td>
+                                        <td style="padding: 8px; font-weight: 600;">${l.assistant}</td>
+                                        <td style="padding: 8px; color: #ddd; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${l.prompt || '-'}</td>
+                                        <td style="padding: 8px; color: ${stColor}; font-weight: 700; font-size: 11px;">${l.status}</td>
+                                    </tr>`;
+                                });
+                                tbody.innerHTML = rowsHtml;
+                            }
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function saveAdminAiConfig() {
+            const aModel = document.getElementById('admin-ai-analyst-model').value;
+            const gModel = document.getElementById('admin-ai-guide-model').value;
+            const limit = document.getElementById('admin-ai-daily-limit').value;
+            const key = document.getElementById('admin-ai-key-input').value;
+
+            fetch('/api/admin/update-ai-config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    analyst_model: aModel,
+                    guide_model: gModel,
+                    daily_limit_per_user: limit,
+                    gemini_api_key: key
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert(data.message || 'Налаштування ШІ збережено успішно!');
+            })
+            .catch(() => alert('Помилка збереження налаштувань ШІ'));
+        }
+
+        function triggerRagReindex() {
+            fetch('/api/admin/reindex-rag', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    alert(data.message || 'Переіндексацію виконано!');
+                    loadAdminOverview();
+                })
+                .catch(() => alert('Помилка при переіндексації'));
+        }
+
+        function changeAdminPassword() {
+            const p = document.getElementById('admin-new-pass').value.trim();
+            if (!p || p.length < 6) {
+                alert('Пароль повинен містити не менше 6 символів');
+                return;
+            }
+            fetch('/api/admin/change-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ new_password: p })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert(data.message || 'Пароль успішно змінено!');
+                document.getElementById('admin-new-pass').value = '';
+            })
+            .catch(() => alert('Помилка при зміні пароля'));
+        }
+
+        function triggerAdminMonitoringScan() {
+            fetch('/api/run-monitoring', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    alert(`Моніторинг виконано успішно! Перевірено джерел: ${data.sources_checked}, Знайдено: ${data.mentions_found}`);
+                    loadAdminOverview();
+                })
+                .catch(() => alert('Помилка запуску моніторингу'));
+        }
+
+        // Store active document number when modal opens
+        const originalOpenDocDetailModal = window.openDocDetailModal;
+        window.openDocDetailModal = function(num) {
+            currentModalDocNum = num;
+            if (originalOpenDocDetailModal) originalOpenDocDetailModal(num);
+        };
+
+</script>
+
+    <!-- ================================================================= -->
+    <!-- FLOATING ACTION BUTTON: AI SITE GUIDE (PAW ICON)                  -->
+    <!-- ================================================================= -->
+    <div id="btn-ai-guide-fab" class="ai-guide-fab" onclick="toggleAiGuide()" title="ШІ-гід сайтом (Патруль 🐾)">
+        <span class="ai-guide-fab-badge">ШІ</span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Dog Paw SVG Icon -->
+            <ellipse cx="12" cy="16" rx="3.5" ry="3"></ellipse>
+            <circle cx="6.5" cy="11.5" r="2"></circle>
+            <circle cx="10" cy="8" r="2"></circle>
+            <circle cx="14" cy="8" r="2"></circle>
+            <circle cx="17.5" cy="11.5" r="2"></circle>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- AI GUIDE DRAWER / BOTTOM SHEET                                    -->
+    <!-- ================================================================= -->
+    <div id="drawer-ai-guide" class="guide-drawer-overlay" onclick="closeAiGuide(event)">
+        <div class="guide-drawer-card" onclick="event.stopPropagation()">
+            <!-- Drawer Header -->
+            <div class="guide-header">
+                <div class="guide-title">
+                    <span style="font-size: 20px;">🐾</span>
+                    <span>Гід Diana Patrol</span>
+                    <span style="font-size: 11px; background: rgba(0,230,118,0.15); color: #00e676; padding: 2px 6px; border-radius: 6px; font-weight: 700;">ONLINE</span>
+                </div>
+                <button class="guide-close-btn" onclick="toggleAiGuide()">&times;</button>
+            </div>
+
+            <!-- Quick Question Chips -->
+            <div class="guide-chips-scroll">
+                <span class="guide-chip" onclick="quickGuideQuery('Де знайти 36 протоколів обвинувачення?')">📑 36 протоколів</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Як відкрити відеозаписи засідань ВАКС?')">🏛️ Відео суду</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Як користуватися аналітичним радаром?')">📡 Медіа-Радар</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Що можна робити у поточному розділі?')">❓ Цей розділ</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Де знаходиться ШІ-аналітик справи?')">🤖 ШІ-аналітик</span>
+            </div>
+
+            <!-- Chat Message Stream -->
+            <div id="guide-chat-stream" class="guide-chat-body">
+                <div class="guide-bubble-assistant">
+                    🐾 <b>Привіт! Я ваш інтелектуальний гід Diana Patrol.</b><br>
+                    Я знаю структуру сайту, всі 36 протоколів, судові відео ВАКС та налаштування. Чим вам допомогти?
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="guide-input-wrap">
+                <input type="text" id="guide-user-input" class="guide-input-box" placeholder="Запитайте що завгодно про сайт..." onkeydown="handleGuideKey(event)">
+                <button class="guide-send-btn" onclick="sendGuideMessage()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL: ADMIN LOGIN (NETFLIX DARK CINEMA)                          -->
+    <!-- ================================================================= -->
+    <div id="modal-admin-login" class="spotlight-search-modal" style="display: none;" onclick="closeAdminLogin(event)">
+        <div class="netflix-card" onclick="event.stopPropagation()" style="max-width: 420px; width: 92%; margin: 80px auto; border: 1px solid rgba(229, 9, 20, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.85);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 24px;">🔒</span>
+                    <h3 style="font-size: 18px; font-weight: 800; color: #fff; margin: 0;">Вхід в адмінпанель</h3>
+                </div>
+                <button class="sheet-close-btn" onclick="closeAdminLogin()">&times;</button>
+            </div>
+
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 16px;">Доступ до керування конфігурацією, сервісами ШІ, поштовим роботом та базою даних.</p>
+
+            <div id="admin-login-error" style="display: none; background: rgba(229, 9, 20, 0.2); border: 1px solid #E50914; color: #ff9999; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 14px;"></div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 4px;">Логін адміністратора:</label>
+                <input type="text" id="admin-login-user" class="spotlight-input" style="padding-left: 14px;" value="admin" placeholder="admin">
+            </div>
+
+            <div style="margin-bottom: 18px;">
+                <label style="display: block; font-size: 12.5px; color: #bbb; margin-bottom: 4px;">Пароль:</label>
+                <input type="password" id="admin-login-pass" class="spotlight-input" style="padding-left: 14px;" placeholder="Введіть пароль" onkeydown="if(event.key==='Enter') submitAdminLogin()">
+            </div>
+
+            <button class="btn-netflix-primary" style="width: 100%; padding: 12px; font-size: 15px; font-weight: 700;" onclick="submitAdminLogin()">
+                🔐 Увійти в адмінпанель
+            </button>
+        </div>
+    </div>
+
 </body>
 </html>
