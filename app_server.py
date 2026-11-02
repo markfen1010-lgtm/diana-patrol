@@ -678,7 +678,7 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
                 ai_service.set_config_val("daily_limit_per_user", str(int(req_data["daily_limit_per_user"])))
             if "gemini_api_key" in req_data and req_data["gemini_api_key"].strip() and req_data["gemini_api_key"] != "******":
                 ai_service.set_config_val("gemini_api_key", req_data["gemini_api_key"].strip())
-            self.send_json({"status": "SUCCESS", "message": "Налаштування ШІ успішно збережено"})
+            self.send_json({"status": "SUCCESS", "message": "Налаштування асистентів успішно збережено"})
             return
 
         elif path == "/api/admin/change-password":

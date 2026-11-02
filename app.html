@@ -1881,13 +1881,13 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
+    background: linear-gradient(135deg, #00C853 0%, #007E33 100%);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.45), 0 2px 6px rgba(0,0,0,0.6);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 22px rgba(0, 200, 83, 0.45), 0 2px 8px rgba(0,0,0,0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     cursor: pointer;
     z-index: 1050;
     transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
@@ -1895,19 +1895,19 @@
 }
 .ai-guide-fab:hover {
     transform: scale(1.08);
-    box-shadow: 0 8px 26px rgba(229, 9, 20, 0.6);
+    box-shadow: 0 8px 28px rgba(0, 200, 83, 0.7);
 }
 .ai-guide-fab:active {
     transform: scale(0.94);
 }
 .ai-guide-fab-badge {
     position: absolute;
-    top: -4px;
-    right: -4px;
+    top: -3px;
+    right: -3px;
     background: #00e676;
     color: #080808;
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 900;
     padding: 2px 6px;
     border-radius: 10px;
     border: 2px solid #080808;
@@ -2401,7 +2401,7 @@
         <button class="pill-btn" id="pill-materials" onclick="switchTab('materials')">Матеріали</button>
         <button class="pill-btn" id="pill-hearings" onclick="switchTab('hearings')">Суд</button>
         <button class="pill-btn" id="pill-custom-search" onclick="switchTab('custom-search')">Радар</button>
-        <button class="pill-btn" id="pill-ai-analyst" onclick="switchTab('ai-analyst')">⚖️ ШІ-аналітик</button>
+        <button class="pill-btn" id="pill-ai-analyst" onclick="switchTab('ai-analyst')">⚖️ Аналітик Роман</button>
     </nav>
 
     <!-- ================================================================= -->
@@ -3226,12 +3226,12 @@
                 <div class="analyst-hero-card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
                         <div>
-                            <span class="hero-category" style="color: #ff8585;">RAG-СИСТЕМА ЗАХИСТУ ВАКС</span>
-                            <h1 style="font-size: 24px; font-weight: 800; color: #fff; margin: 4px 0;">Юридичний ШІ-аналітик</h1>
-                            <p style="color: #a0a0a0; font-size: 13.5px; margin: 0;">Аналіз 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та контраргументів захисту</p>
+                            <span class="hero-category" style="color: #ff8585;">ПРАВОВА ЕКСПЕРТИЗА ТА ДОСЬЄ ВАКС</span>
+                            <h1 style="font-size: 24px; font-weight: 800; color: #fff; margin: 4px 0;">Юридичний аналітик Роман</h1>
+                            <p style="color: #a0a0a0; font-size: 13.5px; margin: 0;">Аналітичне опрацювання 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та позиції захисту</p>
                         </div>
                         <div id="analyst-quota-badge" class="analyst-quota-pill">
-                            ⚡ Запитів сьогодні: <span id="analyst-quota-val">20 / 20</span>
+                            ⚡ Консультацій сьогодні: <span id="analyst-quota-val">20 / 20</span>
                         </div>
                     </div>
 
@@ -3248,7 +3248,7 @@
                     <!-- Compare Two Documents Accordion -->
                     <div style="margin-top: 10px;">
                         <button class="btn-netflix-secondary" style="font-size: 12.5px; padding: 6px 14px;" onclick="toggleDocCompareBar()">
-                            🔄 Порівняти два протоколи через ШІ...
+                            🔄 Порівняти два протоколи справи...
                         </button>
                     </div>
 
@@ -3264,7 +3264,7 @@
                             </div>
                         </div>
                         <button class="btn-netflix-primary" style="font-size: 13px; padding: 8px 16px; width: 100%;" onclick="runDocumentCompare()">
-                            ⚡ Порівняти вибрані протоколи за допомогою ШІ
+                            ⚡ Провести порівняльний правовий аналіз протоколів
                         </button>
                     </div>
                 </div>
@@ -3274,17 +3274,17 @@
                     <div class="analyst-msg-ai">
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                             <span style="font-size: 18px;">⚖️</span>
-                            <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний ШІ-аналітик</span>
-                            <span style="font-size: 11px; background: rgba(229,9,20,0.2); color: #ff9999; padding: 2px 6px; border-radius: 4px;">RAG ACTIVE</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний аналітик Роман</span>
+                            <span style="font-size: 11px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 6px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
                         </div>
-                        <p style="margin: 0 0 8px 0;">Вітаю! Я спеціалізований юридичний ШІ-аналітик кримінального провадження ВАКС № 991/10659/26. Я маю прямий доступ до <b>36 процесуальних протоколів</b>, матеріалів судових засідань та правової позиції захисту.</p>
-                        <p style="margin: 0; font-size: 13px; color: #bbb;">Поставте будь-яке запитання про докази, протоколи обшуків, телефони, заставу чи оберіть швидкий запит вище.</p>
+                        <p style="margin: 0 0 8px 0;">Вітаю! Я провідний юридичний аналітик команди захисту у справі ВАКС № 991/10659/26 (щодо судді Мудрої І.Р.). Я особисто детально опрацював усі <b>36 процесуальних протоколів</b> сторони обвинувачення, стенограми судових засідань та підготував доказову базу для захисту.</p>
+                        <p style="margin: 0; font-size: 13px; color: #bbb;">Поставте мені будь-яке запитання щодо матеріалів справи, нестиковок у протоколах обшуків, оцінки телефонів чи розміру застави, або скористайтеся швидкими темами вище.</p>
                     </div>
                 </div>
 
                 <!-- Input Box -->
                 <div class="analyst-input-card">
-                    <textarea id="analyst-user-input" class="analyst-textarea" placeholder="Введіть запитання (наприклад: «Що заявляв захист щодо протоколу №12?») ..." onkeydown="handleAnalystKey(event)"></textarea>
+                    <textarea id="analyst-user-input" class="analyst-textarea" placeholder="Введіть запитання до аналітика Романа (наприклад: «Що заявляв захист щодо протоколу №12?») ..." onkeydown="handleAnalystKey(event)"></textarea>
                     <button id="analyst-send-btn" class="guide-send-btn" onclick="sendAnalystMessage()" title="Надіслати запит">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -3564,15 +3564,28 @@
                 <div class="tools-group-container" data-group="main">
                     <div class="sheet-group-label" style="letter-spacing: 1px;">ОСНОВНІ</div>
                     <div class="sheet-group-box">
-                        <!-- Legal AI Analyst -->
+                        <!-- Legal Analyst Roman -->
                         <div class="sheet-item tool-searchable-item" onclick="switchTab('ai-analyst'); closeMoreMenu();">
                             <div class="sheet-item-left">
                                 <div class="tools-item-icon-box">
                                     <span style="font-size: 20px;">⚖️</span>
                                 </div>
                                 <div class="sheet-item-texts">
-                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #ff9999;">ШІ-аналітик справи</span>
-                                    <span class="sheet-item-sub">RAG-аналіз 36 протоколів ВАКС</span>
+                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #ff9999;">Юридичний аналітик Роман</span>
+                                    <span class="sheet-item-sub">Правовий розбір 36 протоколів ВАКС</span>
+                                </div>
+                            </div>
+                            <span class="sheet-chevron">›</span>
+                        </div>
+                        <!-- Operator Artur Guide -->
+                        <div class="sheet-item tool-searchable-item" onclick="toggleAiGuide(); closeMoreMenu();">
+                            <div class="sheet-item-left">
+                                <div class="tools-item-icon-box" style="background: rgba(0,200,83,0.15); border-color: rgba(0,200,83,0.3);">
+                                    <span style="font-size: 20px;">👤</span>
+                                </div>
+                                <div class="sheet-item-texts">
+                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #00e676;">Оператор Артур (онлайн)</span>
+                                    <span class="sheet-item-sub">Підтримка та навігація порталом</span>
                                 </div>
                             </div>
                             <span class="sheet-chevron">›</span>
@@ -3961,8 +3974,8 @@
 
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px;">
                 <button id="doc-modal-ai-btn" class="btn-netflix-secondary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(229,9,20,0.5); color: #ff9999;" onclick="triggerDocModalAiAnalysis()">
-                    <span style="font-size: 15px;">🤖</span>
-                    <span>Аналізувати через ШІ</span>
+                    <span style="font-size: 15px;">📋</span>
+                    <span>Довідка аналітика Романа</span>
                 </button>
                 <button id="doc-modal-video-btn"  class="btn-netflix-primary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -6170,7 +6183,7 @@
             const typingBubble = document.createElement('div');
             typingBubble.className = 'guide-bubble-assistant';
             typingBubble.id = 'guide-typing-indicator';
-            typingBubble.innerHTML = '🐾 <i>Гід Diana Patrol шукає відповідь...</i>';
+            typingBubble.innerHTML = '👤 <i>Оператор Артур друкує відповідь...</i>';
             stream.appendChild(typingBubble);
             stream.scrollTop = stream.scrollHeight;
 
@@ -6330,7 +6343,7 @@
             const typingDiv = document.createElement('div');
             typingDiv.className = 'analyst-msg-ai';
             typingDiv.id = 'analyst-typing-indicator';
-            typingDiv.innerHTML = '⚖️ <i>ШІ-аналітик здійснює правовий пошук за матеріалами справи...</i>';
+            typingDiv.innerHTML = '⚖️ <i>Аналітик Роман опрацьовує матеріали справи та формує правову відповідь...</i>';
             history.appendChild(typingDiv);
             history.scrollTop = history.scrollHeight;
 
@@ -6389,7 +6402,7 @@
 
                 const errDiv = document.createElement('div');
                 errDiv.className = 'analyst-msg-ai';
-                errDiv.innerHTML = '⚠️ Помилка виконання запиту до ШІ-аналітика. Перевірте з\'єднання або статус підключення Gemini API.';
+                errDiv.innerHTML = '⚠️ Помилка зв\'язку з аналітичною службою. Перевірте з\'єднання або спробуйте пізніше.';
                 history.appendChild(errDiv);
                 history.scrollTop = history.scrollHeight;
             });
@@ -6614,16 +6627,9 @@
     <!-- ================================================================= -->
     <!-- FLOATING ACTION BUTTON: AI SITE GUIDE (PAW ICON)                  -->
     <!-- ================================================================= -->
-    <div id="btn-ai-guide-fab" class="ai-guide-fab" onclick="toggleAiGuide()" title="ШІ-гід сайтом (Патруль 🐾)">
-        <span class="ai-guide-fab-badge">ШІ</span>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-            <!-- Dog Paw SVG Icon -->
-            <ellipse cx="12" cy="16" rx="3.5" ry="3"></ellipse>
-            <circle cx="6.5" cy="11.5" r="2"></circle>
-            <circle cx="10" cy="8" r="2"></circle>
-            <circle cx="14" cy="8" r="2"></circle>
-            <circle cx="17.5" cy="11.5" r="2"></circle>
-        </svg>
+    <div id="btn-ai-guide-fab" class="ai-guide-fab" onclick="toggleAiGuide()" title="Оператор Артур (онлайн-підтримка)">
+        <span class="ai-guide-fab-badge">●</span>
+        <span style="font-size: 26px; line-height: 1;">👤</span>
     </div>
 
     <!-- ================================================================= -->
@@ -6634,9 +6640,9 @@
             <!-- Drawer Header -->
             <div class="guide-header">
                 <div class="guide-title">
-                    <span style="font-size: 20px;">🐾</span>
-                    <span>Гід Diana Patrol</span>
-                    <span style="font-size: 11px; background: rgba(0,230,118,0.15); color: #00e676; padding: 2px 6px; border-radius: 6px; font-weight: 700;">ONLINE</span>
+                    <span style="font-size: 20px;">👤</span>
+                    <span>Оператор Артур</span>
+                    <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
                 </div>
                 <button class="guide-close-btn" onclick="toggleAiGuide()">&times;</button>
             </div>
@@ -6647,14 +6653,14 @@
                 <span class="guide-chip" onclick="quickGuideQuery('Як відкрити відеозаписи засідань ВАКС?')">🏛️ Відео суду</span>
                 <span class="guide-chip" onclick="quickGuideQuery('Як користуватися аналітичним радаром?')">📡 Медіа-Радар</span>
                 <span class="guide-chip" onclick="quickGuideQuery('Що можна робити у поточному розділі?')">❓ Цей розділ</span>
-                <span class="guide-chip" onclick="quickGuideQuery('Де знаходиться ШІ-аналітик справи?')">🤖 ШІ-аналітик</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Як звернутися до аналітика Романа?')">⚖️ Аналітик Роман</span>
             </div>
 
             <!-- Chat Message Stream -->
             <div id="guide-chat-stream" class="guide-chat-body">
                 <div class="guide-bubble-assistant">
-                    🐾 <b>Привіт! Я ваш інтелектуальний гід Diana Patrol.</b><br>
-                    Я знаю структуру сайту, всі 36 протоколів, судові відео ВАКС та налаштування. Чим вам допомогти?
+                    👤 <b>Доброго дня! Оператор Артур на зв'язку.</b><br>
+                    Я на робочій зміні і готовий допомогти вам швидко знайти будь-які матеріали справи, 36 протоколів, відео судових засідань ВАКС або підказати, як користуватися функціями порталу. Чим можу допомогти?
                 </div>
             </div>
 

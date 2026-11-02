@@ -802,128 +802,175 @@ class EmailReporter:
     @staticmethod
     def generate_report(stats, new_records, total_records_count, excel_path):
         date_str = datetime.now().strftime("%d.%m.%Y")
-        subject = f"AI-моніторинг: презумпція невинуватості — {date_str}"
-        
+        subject = f"🐾 [DIANA PATROL] Звіт моніторингу презумпції невинуватості — {date_str}"
+
         has_new = len(new_records) > 0
         high_risk_records = [r for r in new_records if r.get("risk_level") == "HIGH"]
+        excel_name = os.path.basename(excel_path) if excel_path else "monitoring_database.xlsx"
 
-        html_body = f"""
-        <html>
-        <head>
-            <style>
-                body {{ font-family: 'Segoe UI', Arial, sans-serif; color: #333; line-height: 1.5; }}
-                .header {{ background-color: #1B365D; color: #ffffff; padding: 16px 20px; border-radius: 6px; }}
-                .stats-box {{ display: flex; gap: 15px; margin: 20px 0; }}
-                .stat-card {{ background-color: #F4F7FA; border: 1px solid #D0D7DE; padding: 12px 18px; border-radius: 6px; min-width: 140px; }}
-                .stat-num {{ font-size: 22px; font-weight: bold; color: #1B365D; }}
-                .high-risk {{ color: #D9383A; }}
-                table {{ width: 100%; border-collapse: collapse; margin-top: 15px; }}
-                th {{ background-color: #2E5B88; color: #ffffff; padding: 8px 10px; font-size: 13px; text-align: left; }}
-                td {{ padding: 8px 10px; border-bottom: 1px solid #E1E4E8; font-size: 12px; vertical-align: top; }}
-                .badge-high {{ background-color: #FDE8E8; color: #9C1C1D; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }}
-                .badge-med {{ background-color: #FEF3D6; color: #8F6B00; font-weight: bold; padding: 3px 6px; border-radius: 4px; display: inline-block; }}
-                .footer {{ margin-top: 30px; font-size: 11px; color: #777; border-top: 1px solid #ddd; padding-top: 10px; }}
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h2 style="margin: 0;">AI-Моніторинг: Презумпція невинуватості</h2>
-                <div style="font-size: 13px; opacity: 0.9;">Адвокатське об'єднання | Клієнт: Мудра Ірина Романівна | ВАКС</div>
-            </div>
+        table_rows = ""
+        for rec in new_records[:15]:
+            risk = rec.get("risk_level", "LOW")
+            if risk == "HIGH":
+                badge = '<span style="background-color: rgba(229, 9, 20, 0.25); color: #ff8585; border: 1px solid #E50914; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; font-size: 11px;">🚨 ВИСОКИЙ</span>'
+            elif risk == "MEDIUM":
+                badge = '<span style="background-color: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; font-size: 11px;">⚠️ СЕРЕДНІЙ</span>'
+            else:
+                badge = '<span style="background-color: rgba(16, 185, 129, 0.2); color: #10B981; border: 1px solid #10B981; font-weight: bold; padding: 3px 8px; border-radius: 4px; display: inline-block; font-size: 11px;">✅ НОРМА</span>'
 
-            <p><strong>Дата та час запуску:</strong> {datetime.now().strftime("%d.%m.%Y %H:%M:%S")}</p>
+            raw_url = (rec.get("url") or "").strip()
+            if raw_url and raw_url.startswith("http"):
+                link_html = f'<a href="{raw_url}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; font-size: 11px; font-weight: bold; padding: 5px 10px; border-radius: 4px;">Відкрити ↗</a>'
+            else:
+                link_html = '<span style="color: #666; font-size: 11px;">—</span>'
 
-            <table style="width: auto; margin-bottom: 20px;">
-                <tr>
-                    <td style="background: #F4F7FA; padding: 10px 15px;"><strong>Перевірено відкритих джерел:</strong></td>
-                    <td style="padding: 10px 15px;">{stats['sources_checked']}</td>
-                </tr>
-                <tr>
-                    <td style="background: #F4F7FA; padding: 10px 15px;"><strong>Знайдено релевантних згадок:</strong></td>
-                    <td style="padding: 10px 15px;">{stats['mentions_found']}</td>
-                </tr>
-                <tr>
-                    <td style="background: #F4F7FA; padding: 10px 15px;"><strong>Нових публікацій у цьому запуску:</strong></td>
-                    <td style="padding: 10px 15px; font-weight: bold;">{len(new_records)}</td>
-                </tr>
-                <tr>
-                    <td style="background: #F4F7FA; padding: 10px 15px;"><strong>Матеріалів із високим рівнем ризику:</strong></td>
-                    <td style="padding: 10px 15px; color: #D9383A; font-weight: bold;">{len(high_risk_records)}</td>
-                </tr>
-                <tr>
-                    <td style="background: #F4F7FA; padding: 10px 15px;"><strong>Загальний реєстр публікацій:</strong></td>
-                    <td style="padding: 10px 15px;">{total_records_count} записів</td>
-                </tr>
-            </table>
-        """
-
-        if not has_new:
-            html_body += """
-            <div style="background-color: #E6F4EA; border-left: 4px solid #137333; padding: 12px 16px; margin: 15px 0;">
-                <strong>Результат моніторингу:</strong> Нових релевантних публікацій під час поточного моніторингу не виявлено.
-            </div>
+            table_rows += f"""
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #222; font-size: 12px; color: #ddd; vertical-align: top;">
+                    <strong style="color: #fff;">{rec.get('source_name', '')}</strong><br>
+                    <span style="color: #888; font-size: 11px;">{rec.get('author', '')}</span>
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #222; font-size: 12px; color: #eee; vertical-align: top;">
+                    <em>«{rec.get('problematic_quote', '')}»</em>
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #222; font-size: 12px; vertical-align: top; text-align: center;">
+                    {badge}<br>
+                    <small style="color: #888; font-size: 10px; display: block; margin-top: 4px;">{rec.get('legal_norm', '')}</small>
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #222; font-size: 11.5px; color: #aaa; vertical-align: top;">
+                    {rec.get('ai_explanation', '')}
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #222; font-size: 11px; vertical-align: middle; text-align: center;">
+                    {link_html}
+                </td>
+            </tr>
             """
-        else:
-            html_body += """
-            <h3>Ключові виявлені матеріали з ознаками можливих порушень:</h3>
-            <table>
+
+        table_content = f"""
+        <div style="overflow-x: auto; margin-top: 15px;">
+            <table style="width: 100%; border-collapse: collapse; background: #111111; border-radius: 8px; overflow: hidden;">
                 <thead>
-                    <tr>
-                        <th style="width: 20%;">Джерело / Автор</th>
-                        <th style="width: 35%;">Проблемна цитата / Заголовок</th>
-                        <th style="width: 15%;">Рівень ризику</th>
-                        <th style="width: 30%;">Юридичний коментар AI</th>
+                    <tr style="background-color: #1a1a1a; border-bottom: 2px solid #E50914;">
+                        <th style="color: #ff8585; padding: 10px; font-size: 12px; text-align: left; width: 20%;">Джерело / Автор</th>
+                        <th style="color: #ff8585; padding: 10px; font-size: 12px; text-align: left; width: 30%;">Цитата / Текст</th>
+                        <th style="color: #ff8585; padding: 10px; font-size: 12px; text-align: center; width: 15%;">Рівень ризику</th>
+                        <th style="color: #ff8585; padding: 10px; font-size: 12px; text-align: left; width: 25%;">Правова оцінка</th>
+                        <th style="color: #ff8585; padding: 10px; font-size: 12px; text-align: center; width: 10%;">Джерело</th>
                     </tr>
                 </thead>
                 <tbody>
-            """
-            for rec in new_records[:10]:
-                risk = rec.get("risk_level", "LOW")
-                badge_class = "badge-high" if risk == "HIGH" else ("badge-med" if risk == "MEDIUM" else "")
-                html_body += f"""
-                    <tr>
-                        <td>
-                            <strong>{rec.get('source_name', '')}</strong><br>
-                            <span style="color: #666;">{rec.get('author', '')}</span><br>
-                            <a href="{rec.get('url', '#')}">Посилання на матеріал</a>
-                        </td>
-                        <td>
-                            <em>«{rec.get('problematic_quote', '')}»</em>
-                        </td>
-                        <td>
-                            <span class="{badge_class}">{risk}</span><br>
-                            <small>{rec.get('legal_norm', '')}</small>
-                        </td>
-                        <td>
-                            {rec.get('ai_explanation', '')}
-                        </td>
-                    </tr>
-                """
-            html_body += """
+                    {table_rows}
                 </tbody>
             </table>
-            """
-
-        html_body += f"""
-            <p style="margin-top: 20px;">
-                Повний масив даних оновлено в основній базі: <strong>{os.path.basename(excel_path)}</strong>
-            </p>
-            <div class="footer">
-                Звіт сформовано автоматично AI-агентом моніторингу презумпції невинуватості.<br>
-                Остаточну правову оцінку та процесуальне реагування здійснює визначений адвокат.
-            </div>
-        </body>
-        </html>
+        </div>
+        """ if has_new else """
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10B981; border-radius: 10px; padding: 16px; text-align: center; color: #10B981; margin: 15px 0;">
+            ✅ Під час цього циклу нових порушень презумпції невинуватості не зафіксовано.
+        </div>
         """
 
+        html_body = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{subject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #080808; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #F5F5F1;">
+    <div style="max-width: 720px; margin: 20px auto; background-color: #141414; border: 1px solid rgba(229, 9, 20, 0.4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.85);">
+        
+        <!-- HEADER -->
+        <div style="background: linear-gradient(135deg, #1f0b0d 0%, #141414 100%); padding: 24px; text-align: center; border-bottom: 1px solid rgba(229, 9, 20, 0.3);">
+            <div style="font-size: 26px; margin-bottom: 4px;">🐾 ⚖️</div>
+            <h1 style="margin: 0; font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px;">
+                DIANA PATROL <span style="color: #E50914;">| ADVOCATE RADAR</span>
+            </h1>
+            <p style="margin: 6px 0 0; font-size: 13px; color: #a0a0a0;">
+                Автоматизований моніторинг дотримання презумпції невинуватості (ст. 62 КУ, ст. 6 § 2 ЄСПЛ)
+            </p>
+        </div>
+
+        <!-- CONTENT -->
+        <div style="padding: 24px;">
+            
+            <!-- CASE INFO BOX -->
+            <div style="background: rgba(229, 9, 20, 0.08); border: 1px solid rgba(229, 9, 20, 0.3); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">👤 <strong>Фігурант / Клієнт:</strong></td>
+                        <td style="padding: 4px 0; color: #fff; font-weight: bold; text-align: right;">Мудра Ірина Романівна (ВАКС № 991/10659/26)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">🕒 <strong>Час формування:</strong></td>
+                        <td style="padding: 4px 0; color: #fff; text-align: right;">{datetime.now().strftime('%d.%m.%Y о %H:%M:%S')}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">📎 <strong>Додана таблиця:</strong></td>
+                        <td style="padding: 4px 0; color: #ff8585; font-weight: bold; text-align: right;">{excel_name}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- KPI STATS -->
+            <table style="width: 100%; border-collapse: separate; border-spacing: 8px; margin-bottom: 20px;">
+                <tr>
+                    <td style="background: #1a1a1a; border: 1px solid #282828; border-radius: 10px; padding: 12px; text-align: center; width: 25%;">
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase;">Джерела</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px;">{stats.get('sources_checked', 0)}</div>
+                    </td>
+                    <td style="background: #1a1a1a; border: 1px solid #282828; border-radius: 10px; padding: 12px; text-align: center; width: 25%;">
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase;">Знайдено</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #38BDF8; margin-top: 4px;">{stats.get('mentions_found', 0)}</div>
+                    </td>
+                    <td style="background: #1a1a1a; border: 1px solid #282828; border-radius: 10px; padding: 12px; text-align: center; width: 25%;">
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase;">Нові</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #f59e0b; margin-top: 4px;">{len(new_records)}</div>
+                    </td>
+                    <td style="background: #1a1a1a; border: 1px solid rgba(229,9,20,0.6); border-radius: 10px; padding: 12px; text-align: center; width: 25%;">
+                        <div style="font-size: 11px; color: #ff8585; text-transform: uppercase;">Критичний ризик</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #E50914; margin-top: 4px;">{len(high_risk_records)}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <h3 style="font-size: 15px; font-weight: 700; color: #F5F5F1; margin: 20px 0 10px; border-left: 3px solid #E50914; padding-left: 10px;">
+                🔍 ВИЯВЛЕНІ МАТЕРІАЛИ ТА ПРЯМІ ПОСИЛАННЯ:
+            </h3>
+
+            {table_content}
+
+            <!-- DIRECT PORTAL ACTION BUTTON -->
+            <div style="text-align: center; margin: 28px 0 16px;">
+                <a href="https://diana-patrol.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
+                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ DIANA PATROL ❯
+                </a>
+            </div>
+
+            <!-- EXCEL NOTICE -->
+            <div style="background: #161616; border-left: 3px solid #E50914; border-radius: 6px; padding: 12px 16px; margin: 18px 0; font-size: 12.5px; color: #ccc;">
+                📊 <strong>Реєстр доказів:</strong> Повний масив публікацій ({total_records_count} записів) зафіксовано в прикріпленому файлі <b>{excel_name}</b> для адвокатського досьє.
+            </div>
+
+            <!-- FOOTER LEGAL NOTE -->
+            <div style="background: #0d0d0d; border: 1px dashed #262626; border-radius: 10px; padding: 14px; margin-top: 20px; font-size: 11.5px; color: #777; line-height: 1.45;">
+                ⚖️ <strong>Адвокатська таємниця та правова кваліфікація:</strong> Звіт згенеровано автономним аналітичним комплексом «Diana Patrol» відповідно до вимог ст. 62 Конституції України, ст. 17 КПК України та ст. 6 § 2 Конвенції про захист прав людини.
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div style="background: #0c0c0c; padding: 16px 20px; text-align: center; border-top: 1px solid #1f1f1f; font-size: 11px; color: #666;">
+            🐾 «DIANA PATROL» | Адвокатське об'єднання захисту прав та свобод людини
+        </div>
+
+    </div>
+</body>
+</html>
+"""
         return subject, html_body
 
     @staticmethod
     def generate_dynamic_digest_html(target_name, search_res, excel_filename, recipient_email=""):
-        """
-        Генерує преміальний HTML-дайджест для автоматичної розсилки на пошту
-        у стилі «ЩЕНЯЧИЙ ПАТРУЛЬ | ADVOCATE RADAR» із прямими посиланнями.
-        """
         now_str = datetime.now().strftime("%d.%m.%Y о %H:%M")
         results = search_res.get("results", [])
         total_collected = search_res.get("total_collected", len(results))
@@ -931,42 +978,48 @@ class EmailReporter:
         high_count = search_res.get("high_count", sum(1 for r in results if r.get("risk_level") == "HIGH"))
         med_count = search_res.get("med_count", sum(1 for r in results if r.get("risk_level") == "MEDIUM"))
 
-        subject = f"🐾 [ЩЕНЯЧИЙ ПАТРУЛЬ] Оновлений моніторинг презумпції невинуватості: {target_name} ({now_str})"
+        subject = f"🐾 [DIANA PATROL] Оновлений моніторинг презумпції невинуватості: {target_name} ({now_str})"
 
         items_html = ""
         for idx, item in enumerate(results[:15], 1):
             risk = item.get("risk_level", "LOW")
-            risk_color = "#EF4444" if risk == "HIGH" else ("#F59E0B" if risk == "MEDIUM" else "#10B981")
+            risk_color = "#E50914" if risk == "HIGH" else ("#F59E0B" if risk == "MEDIUM" else "#10B981")
             risk_label = "🚨 ВИСОКИЙ РИЗИК" if risk == "HIGH" else ("⚠️ СЕРЕДНІЙ РИЗИК" if risk == "MEDIUM" else "✅ НОРМА")
-            
-            url = item.get("url", "#")
-            src = item.get("source_name", "Невідомо")
+
+            url = (item.get("url") or "").strip()
+            src = item.get("source_name", "Невідоме джерело")
             quote = item.get("problematic_quote") or item.get("title", "")
-            explanation = item.get("ai_explanation", "Потребує оцінки адвоката")
+            explanation = item.get("ai_explanation", "Потребує правової оцінки адвоката")
             norm = item.get("legal_norm", "ст. 62 Конституції України, ст. 6 § 2 ЄСПЛ")
 
-            items_html += f"""
-            <div style="background-color: #0F172A; border: 1px solid #1E293B; border-left: 4px solid {risk_color}; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <span style="background: rgba(255,255,255,0.08); color: #38BDF8; font-size: 11px; font-weight: bold; padding: 4px 8px; border-radius: 6px;">
-                        #{idx} {src}
-                    </span>
-                    <span style="color: {risk_color}; font-size: 11px; font-weight: bold; border: 1px solid {risk_color}; padding: 2px 8px; border-radius: 12px;">
-                        {risk_label}
-                    </span>
-                </div>
-                <div style="font-size: 14px; font-weight: 600; color: #F8FAFC; margin-bottom: 6px;">
-                    «{quote}»
-                </div>
-                <div style="font-size: 12px; color: #94A3B8; margin-bottom: 10px; line-height: 1.4;">
-                    ⚖️ <strong>Оцінка AI:</strong> {explanation}<br>
-                    📜 <strong>Норма:</strong> {norm}
-                </div>
-                <div>
-                    <a href="{url}" target="_blank" style="display: inline-block; background: #0284C7; color: #ffffff; text-decoration: none; font-size: 11px; font-weight: bold; padding: 6px 12px; border-radius: 6px;">
+            link_btn = ""
+            if url and url.startswith("http"):
+                link_btn = f'''
+                <div style="margin-top: 10px;">
+                    <a href="{url}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; font-size: 11.5px; font-weight: bold; padding: 7px 14px; border-radius: 6px; box-shadow: 0 2px 8px rgba(229,9,20,0.35);">
                         🔗 Відкрити першоджерело / Telegram-пост ❯
                     </a>
                 </div>
+                '''
+
+            items_html += f"""
+            <div style="background-color: #141414; border: 1px solid #262626; border-left: 4px solid {risk_color}; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="background: rgba(255,255,255,0.06); color: #ff8585; font-size: 11px; font-weight: bold; padding: 4px 8px; border-radius: 6px;">
+                        #{idx} {src}
+                    </span>
+                    <span style="color: {risk_color}; font-size: 11px; font-weight: bold; border: 1px solid {risk_color}; padding: 2px 8px; border-radius: 12px; background: rgba(0,0,0,0.4);">
+                        {risk_label}
+                    </span>
+                </div>
+                <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; line-height: 1.4;">
+                    «{quote}»
+                </div>
+                <div style="font-size: 12px; color: #a0a0a0; margin-bottom: 6px; line-height: 1.45;">
+                    ⚖️ <strong>Оцінка аналітика:</strong> {explanation}<br>
+                    📜 <strong>Правова норма:</strong> {norm}
+                </div>
+                {link_btn}
             </div>
             """
 
@@ -977,85 +1030,92 @@ class EmailReporter:
             </div>
             """
 
-        html_body = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>{subject}</title>
-        </head>
-        <body style="margin: 0; padding: 0; background-color: #080C16; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #F8FAFC;">
-            <div style="max-width: 650px; margin: 20px auto; background-color: #0B1120; border: 1px solid #1E3A8A; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                
-                <!-- HEADER -->
-                <div style="background: linear-gradient(135deg, #1E1B4B 0%, #0C4A6E 100%); padding: 24px; text-align: center; border-bottom: 1px solid #38BDF8;">
-                    <div style="font-size: 30px; margin-bottom: 6px;">🐾 🐶 ✨</div>
-                    <h1 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #38BDF8;">
-                        ЩЕНЯЧИЙ ПАТРУЛЬ | АДВОКАТСЬКИЙ AI-РАДАР
-                    </h1>
-                    <p style="margin: 6px 0 0; font-size: 13px; color: #94A3B8;">
-                        Автоматичний моніторинг публічних висловлювань та презумпції невинуватості
-                    </p>
-                </div>
+        html_body = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{subject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #080808; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #F5F5F1;">
+    <div style="max-width: 680px; margin: 20px auto; background-color: #141414; border: 1px solid rgba(229, 9, 20, 0.4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.85);">
+        
+        <!-- HEADER -->
+        <div style="background: linear-gradient(135deg, #1f0b0d 0%, #141414 100%); padding: 24px; text-align: center; border-bottom: 1px solid rgba(229, 9, 20, 0.3);">
+            <div style="font-size: 26px; margin-bottom: 4px;">🐾 📡</div>
+            <h1 style="margin: 0; font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px;">
+                DIANA PATROL <span style="color: #E50914;">| ADVOCATE RADAR</span>
+            </h1>
+            <p style="margin: 6px 0 0; font-size: 13px; color: #a0a0a0;">
+                Автоматичний моніторинг публічних висловлювань та презумпції невинуватості
+            </p>
+        </div>
 
-                <!-- BODY CONTENT -->
-                <div style="padding: 24px;">
-                    <div style="background: rgba(6, 182, 212, 0.08); border: 1px solid #06B6D4; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
-                        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                            <tr>
-                                <td style="padding: 4px 0; color: #94A3B8;">👤 <strong>Фігурант / Клієнт:</strong></td>
-                                <td style="padding: 4px 0; color: #F8FAFC; font-weight: bold; text-align: right;">{target_name}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px 0; color: #94A3B8;">🕒 <strong>Час формування:</strong></td>
-                                <td style="padding: 4px 0; color: #F8FAFC; text-align: right;">{now_str}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 4px 0; color: #94A3B8;">📎 <strong>Оновлений Excel:</strong></td>
-                                <td style="padding: 4px 0; color: #38BDF8; font-weight: bold; text-align: right;">{excel_filename} (у додатку)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- KPI METRICS -->
-                    <table style="width: 100%; border-collapse: separate; border-spacing: 8px; margin-bottom: 20px;">
-                        <tr>
-                            <td style="background: #111C33; border: 1px solid #1E3A8A; border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
-                                <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase;">Знайдено</div>
-                                <div style="font-size: 22px; font-weight: 800; color: #38BDF8; margin-top: 4px;">{total_collected}</div>
-                            </td>
-                            <td style="background: #111C33; border: 1px solid #1E3A8A; border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
-                                <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase;">Релевантні</div>
-                                <div style="font-size: 22px; font-weight: 800; color: #F59E0B; margin-top: 4px;">{relevant_count}</div>
-                            </td>
-                            <td style="background: #111C33; border: 1px solid #EF4444; border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
-                                <div style="font-size: 11px; color: #EF4444; text-transform: uppercase;">Критичний ризик</div>
-                                <div style="font-size: 22px; font-weight: 800; color: #EF4444; margin-top: 4px;">{high_count}</div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <h2 style="font-size: 15px; font-weight: 700; color: #F8FAFC; margin: 20px 0 12px; border-left: 3px solid #06B6D4; padding-left: 10px;">
-                        🔍 ВИЯВЛЕНІ МАТЕРІАЛИ ТА ПРЯМІ ПОСИЛАННЯ:
-                    </h2>
-
-                    {items_html}
-
-                    <!-- FOOTER ADVICE -->
-                    <div style="background: #090E1A; border: 1px dashed #334155; border-radius: 10px; padding: 14px; margin-top: 24px; font-size: 12px; color: #64748B; line-height: 1.4;">
-                        ⚖️ <strong>Адвокатська діяльність та правова кваліфікація:</strong> Даний звіт згенеровано автоматично автономним AI-агентом моніторингу за алгоритмом аналізу ст. 62 Конституції України, ст. 17 КПК України та ст. 6 § 2 Конвенції про захист прав людини (практика ЄСПЛ). Всі виявлені порушення зафіксовані у прикріпленій таблиці Excel для залучення до матеріалів судового захисту.
-                    </div>
-                </div>
-
-                <!-- FOOTER -->
-                <div style="background: #060911; padding: 14px 20px; text-align: center; border-top: 1px solid #1E293B; font-size: 11px; color: #64748B;">
-                    🐾 «ЩЕНЯЧИЙ ПАТРУЛЬ» | Розроблено для дисципліни «Адвокатура та адвокатська діяльність»
-                </div>
+        <!-- BODY CONTENT -->
+        <div style="padding: 24px;">
+            
+            <div style="background: rgba(229, 9, 20, 0.08); border: 1px solid rgba(229, 9, 20, 0.3); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">👤 <strong>Фігурант / Клієнт:</strong></td>
+                        <td style="padding: 4px 0; color: #fff; font-weight: bold; text-align: right;">{target_name}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">🕒 <strong>Час формування:</strong></td>
+                        <td style="padding: 4px 0; color: #fff; text-align: right;">{now_str}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 4px 0; color: #888;">📎 <strong>Оновлений Excel:</strong></td>
+                        <td style="padding: 4px 0; color: #ff8585; font-weight: bold; text-align: right;">{excel_filename} (у додатку)</td>
+                    </tr>
+                </table>
             </div>
-        </body>
-        </html>
-        """
+
+            <!-- KPI METRICS -->
+            <table style="width: 100%; border-collapse: separate; border-spacing: 8px; margin-bottom: 20px;">
+                <tr>
+                    <td style="background: #1a1a1a; border: 1px solid #282828; border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase;">Знайдено</div>
+                        <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px;">{total_collected}</div>
+                    </td>
+                    <td style="background: #1a1a1a; border: 1px solid #282828; border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
+                        <div style="font-size: 11px; color: #888; text-transform: uppercase;">Релевантні</div>
+                        <div style="font-size: 22px; font-weight: 800; color: #f59e0b; margin-top: 4px;">{relevant_count}</div>
+                    </td>
+                    <td style="background: #1a1a1a; border: 1px solid rgba(229,9,20,0.6); border-radius: 10px; padding: 12px; text-align: center; width: 33%;">
+                        <div style="font-size: 11px; color: #ff8585; text-transform: uppercase;">Критичний ризик</div>
+                        <div style="font-size: 22px; font-weight: 800; color: #E50914; margin-top: 4px;">{high_count}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <h2 style="font-size: 15px; font-weight: 700; color: #FFFFFF; margin: 20px 0 12px; border-left: 3px solid #E50914; padding-left: 10px;">
+                🔍 ВИЯВЛЕНІ МАТЕРІАЛИ ТА ПРЯМІ ПОСИЛАННЯ:
+            </h2>
+
+            {items_html}
+
+            <!-- DIRECT PORTAL ACTION BUTTON -->
+            <div style="text-align: center; margin: 26px 0 16px;">
+                <a href="https://diana-patrol.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
+                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ DIANA PATROL ❯
+                </a>
+            </div>
+
+            <!-- FOOTER ADVICE -->
+            <div style="background: #0d0d0d; border: 1px dashed #262626; border-radius: 10px; padding: 14px; margin-top: 24px; font-size: 12px; color: #777; line-height: 1.45;">
+                ⚖️ <strong>Адвокатська діяльність та правова кваліфікація:</strong> Даний звіт згенеровано автономним комплексом моніторингу за алгоритмом аналізу ст. 62 Конституції України, ст. 17 КПК України та ст. 6 § 2 Конвенції про захист прав людини (практика ЄСПЛ). Всі виявлені порушення зафіксовані у прикріпленій таблиці Excel для залучення до матеріалів судового захисту.
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div style="background: #0c0c0c; padding: 14px 20px; text-align: center; border-top: 1px solid #1f1f1f; font-size: 11px; color: #666;">
+            🐾 «DIANA PATROL» | Розроблено для дисципліни «Адвокатура та адвокатська діяльність»
+        </div>
+    </div>
+</body>
+</html>
+"""
         return subject, html_body
 
     @staticmethod
