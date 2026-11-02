@@ -2111,36 +2111,44 @@
 
 /* --- AI Analyst Screen (#tab-ai-analyst) --- */
 .analyst-container {
-    padding: 0 16px 80px 16px;
+    padding: 0 0 30px 0;
     max-width: 960px;
+    width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 .analyst-hero-card {
     background: linear-gradient(135deg, #1f0b0d 0%, #171717 100%);
-    border: 1px solid rgba(229, 9, 20, 0.3);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    border: 1px solid rgba(229, 9, 20, 0.35);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+    width: 100%;
 }
 .analyst-quota-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: 11.5px;
     background: rgba(0, 230, 118, 0.15);
     border: 1px solid rgba(0, 230, 118, 0.4);
     color: #00e676;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 .analyst-quick-chips {
     display: flex;
     gap: 8px;
     overflow-x: auto;
-    padding: 4px 0 12px 0;
+    padding: 6px 0 10px 0;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
 }
 .analyst-quick-chips::-webkit-scrollbar { display: none; }
 .analyst-chip {
@@ -2148,10 +2156,11 @@
     background: #1e1e1e;
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #e0e0e0;
-    padding: 7px 14px;
-    border-radius: 20px;
-    font-size: 12.5px;
+    padding: 6px 12px;
+    border-radius: 18px;
+    font-size: 12px;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.15s ease;
 }
 .analyst-chip:hover {
@@ -2163,8 +2172,10 @@
     background: #141414;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    width: 100%;
 }
 .analyst-compare-grid {
     display: grid;
@@ -2180,34 +2191,41 @@
     background: #0d0d0d;
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #eee;
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     outline: none;
+    box-sizing: border-box;
 }
 .analyst-chat-history {
     background: #101010;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    min-height: 380px;
-    max-height: 600px;
+    border-radius: 14px;
+    min-height: 220px;
+    max-height: 520px;
     overflow-y: auto;
-    padding: 18px;
+    overflow-x: hidden;
+    padding: 12px 14px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    width: 100%;
 }
 .analyst-msg-user {
     align-self: flex-end;
     background: #202020;
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 14px 14px 2px 14px;
-    padding: 12px 16px;
-    max-width: 82%;
+    padding: 10px 14px;
+    max-width: 88%;
     color: #fff;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13.5px;
+    line-height: 1.45;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 .analyst-msg-ai {
     align-self: flex-start;
@@ -2215,11 +2233,15 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 3px solid #E50914;
     border-radius: 14px 14px 14px 2px;
-    padding: 16px 18px;
-    max-width: 95%;
+    padding: 12px 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     color: #f2f2f2;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 13.5px;
+    line-height: 1.55;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 .analyst-citation-pill {
     display: inline-flex;
@@ -2230,11 +2252,12 @@
     color: #ff9999;
     padding: 3px 8px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
     cursor: pointer;
-    margin: 2px 4px;
+    margin: 2px 3px;
     transition: all 0.15s ease;
+    box-sizing: border-box;
 }
 .analyst-citation-pill:hover {
     background: #E50914;
@@ -2242,26 +2265,30 @@
 }
 .analyst-input-card {
     background: #171717;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
-    padding: 12px;
+    border: 1px solid rgba(229, 9, 20, 0.35);
+    border-radius: 14px;
+    padding: 8px 12px;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: flex-end;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 24px;
 }
 .analyst-textarea {
     flex: 1;
     background: transparent;
     border: none;
     color: #fff;
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.4;
     outline: none;
     resize: none;
-    min-height: 44px;
-    max-height: 120px;
-    padding: 8px 4px;
+    min-height: 40px;
+    max-height: 110px;
+    padding: 6px 2px;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 /* --- Admin Panel Screen (#tab-admin) --- */
@@ -3225,14 +3252,14 @@
                 
                 <!-- Hero Header -->
                 <div class="analyst-hero-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
-                        <div>
-                            <span class="hero-category" style="color: #ff8585;">ПРАВОВА ЕКСПЕРТИЗА ТА ДОСЬЄ ВАКС</span>
-                            <h1 style="font-size: 24px; font-weight: 800; color: #fff; margin: 4px 0;">Юридичний аналітик Роман</h1>
-                            <p style="color: #a0a0a0; font-size: 13.5px; margin: 0;">Аналітичне опрацювання 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та позиції захисту</p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <span class="hero-category" style="color: #ff8585; font-size: 11px;">ПРАВОВА ЕКСПЕРТИЗА ТА ДОСЬЄ ВАКС</span>
+                            <h1 style="font-size: 20px; font-weight: 800; color: #fff; margin: 3px 0; word-break: break-word;">Юридичний аналітик Роман</h1>
+                            <p style="color: #a0a0a0; font-size: 12px; margin: 0; line-height: 1.4;">Аналітичне опрацювання 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та позиції захисту</p>
                         </div>
-                        <div id="analyst-quota-badge" class="analyst-quota-pill">
-                            ⚡ Консультацій сьогодні: <span id="analyst-quota-val">20 / 20</span>
+                        <div id="analyst-quota-badge" class="analyst-quota-pill" style="align-self: flex-start;">
+                            ⚡ Консультацій: <span id="analyst-quota-val">20 / 20</span>
                         </div>
                     </div>
 
@@ -3273,13 +3300,15 @@
                 <!-- Chat History Window -->
                 <div id="analyst-chat-history" class="analyst-chat-history">
                     <div class="analyst-msg-ai">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                            <span style="font-size: 18px;">⚖️</span>
-                            <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний аналітик Роман</span>
-                            <span style="font-size: 11px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 6px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span style="font-size: 18px;">⚖️</span>
+                                <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний аналітик Роман</span>
+                            </div>
+                            <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4); white-space: nowrap;">● НА ЗВ'ЯЗКУ</span>
                         </div>
-                        <p style="margin: 0 0 8px 0;">Вітаю! Я провідний юридичний аналітик команди захисту у справі ВАКС № 991/10659/26 (щодо судді Мудрої І.Р.). Я особисто детально опрацював усі <b>36 процесуальних протоколів</b> сторони обвинувачення, стенограми судових засідань та підготував доказову базу для захисту.</p>
-                        <p style="margin: 0; font-size: 13px; color: #bbb;">Поставте мені будь-яке запитання щодо матеріалів справи, нестиковок у протоколах обшуків, оцінки телефонів чи розміру застави, або скористайтеся швидкими темами вище.</p>
+                        <p style="margin: 0 0 8px 0; word-break: break-word; overflow-wrap: break-word;">Вітаю! Я провідний юридичний аналітик команди захисту у справі ВАКС № 991/10659/26 (щодо судді Мудрої І.Р.). Я особисто детально опрацював усі <b>36 процесуальних протоколів</b> сторони обвинувачення, стенограми судових засідань та підготував доказову базу для захисту.</p>
+                        <p style="margin: 0; font-size: 12.5px; color: #bbb; word-break: break-word; overflow-wrap: break-word;">Поставте мені будь-яке запитання щодо матеріалів справи, нестиковок у протоколах обшуків, оцінки телефонів чи розміру застави, або скористайтеся швидкими темами вище.</p>
                     </div>
                 </div>
 
@@ -4319,7 +4348,12 @@
             // Top pills
             document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             const activePill = document.getElementById('pill-' + tabId);
-            if (activePill) activePill.classList.add('active');
+            if (activePill) {
+                activePill.classList.add('active');
+                try {
+                    activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } catch(e) {}
+            }
 
             // Bottom nav
             document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
@@ -6126,7 +6160,12 @@
             // Sync top pill active state
             document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             const activePill = document.getElementById('pill-' + tabId);
-            if (activePill) activePill.classList.add('active');
+            if (activePill) {
+                activePill.classList.add('active');
+                try {
+                    activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } catch(e) {}
+            }
         };
 
         // --- 1. AI SITE GUIDE (PAW FAB) CONTROLLER ---
@@ -6327,12 +6366,14 @@
             if (!history) return;
             history.innerHTML = `
                 <div class="analyst-msg-ai">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <span style="font-size: 18px;">⚖️</span>
-                        <span style="font-weight: 700; color: #ff8585; font-size: 14px;">Юридичний ШІ-аналітик</span>
-                        <span style="font-size: 11px; background: rgba(229,9,20,0.2); color: #ff9999; padding: 2px 6px; border-radius: 4px;">RAG ACTIVE</span>
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="font-size: 18px;">⚖️</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний аналітик Роман</span>
+                        </div>
+                        <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
                     </div>
-                    <p style="margin: 0;">Діалог очищено. Виберіть запит або введіть нове запитання щодо матеріалів справи.</p>
+                    <p style="margin: 0; word-break: break-word;">Діалог очищено. Виберіть тему або введіть нове запитання щодо матеріалів справи.</p>
                 </div>
             `;
         }
@@ -6399,7 +6440,16 @@
                     formatted += '</div>';
                 }
 
-                aiDiv.innerHTML = formatted;
+                const headerHtml = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="font-size: 16px;">⚖️</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Аналітик Роман</span>
+                        </div>
+                        <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4); white-space: nowrap;">● НА ЗВ'ЯЗКУ</span>
+                    </div>
+                `;
+                aiDiv.innerHTML = headerHtml + formatted;
                 history.appendChild(aiDiv);
                 history.scrollTop = history.scrollHeight;
 

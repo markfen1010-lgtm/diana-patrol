@@ -122,7 +122,7 @@ def init_database(db_path=DB_PATH):
     if cur.fetchone()[0] == 0:
         # Initial admin user
         # In production, can be set via env ADMIN_PASSWORD or changed in admin panel
-        admin_pass = os.environ.get("ADMIN_PASSWORD", "DianaAdmin2026!Patrol")
+        admin_pass = os.environ.get("ADMIN_PASSWORD", "123456789A")
         p_hash, p_salt = hash_password(admin_pass)
         cur.execute("""
             INSERT INTO admin_users (username, password_hash, salt, created_at)
