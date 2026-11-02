@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b2e"/>
+      <stop offset="100%" stop-color="#0d0c14"/>
+    </linearGradient>
+
+    <!-- Headset Gradient (Netflix Red) -->
+    <linearGradient id="headsetRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1E27"/>
+      <stop offset="100%" stop-color="#B20710"/>
+    </linearGradient>
+
+    <!-- Hair Gradient -->
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a332d"/>
+      <stop offset="100%" stop-color="#2c1d18"/>
+    </linearGradient>
+
+    <!-- Clothes Gradient -->
+    <linearGradient id="clothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#222533"/>
+      <stop offset="100%" stop-color="#151722"/>
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Circular Avatar Background -->
+  <circle cx="60" cy="60" r="58" fill="url(#bgGrad)" stroke="#38384a" stroke-width="2"/>
+
+  <!-- Clip Path to keep inside circle -->
+  <clipPath id="circleClip">
+    <circle cx="60" cy="60" r="57"/>
+  </clipPath>
+
+  <g clip-path="url(#circleClip)">
+    
+    <!-- Torso / Shoulders -->
+    <path d="M18 120 C 22 92, 40 86, 60 86 C 80 86, 98 92, 102 120 Z" fill="url(#clothGrad)" filter="url(#softShadow)"/>
+    <!-- Collar / Hoodie V-neck -->
+    <path d="M50 86 L60 97 L70 86 Z" fill="#E50914" opacity="0.85"/>
+    <!-- Neck -->
+    <path d="M51 68 L51 86 C 51 90, 69 90, 69 86 L69 68 Z" fill="#f5c29b"/>
+    <path d="M51 72 C 57 77, 63 77, 69 72 L69 78 C 63 82, 57 82, 51 78 Z" fill="#e0a982" opacity="0.6"/>
+
+    <!-- Head / Face -->
+    <!-- Ears -->
+    <circle cx="37" cy="55" r="7" fill="#f5c29b"/>
+    <circle cx="83" cy="55" r="7" fill="#f5c29b"/>
+
+    <!-- Face Oval -->
+    <path d="M38 46 C 38 30, 82 30, 82 46 C 82 68, 73 78, 60 78 C 47 78, 38 68, 38 46 Z" fill="#fcd0a1" filter="url(#softShadow)"/>
+
+    <!-- Eyes -->
+    <ellipse cx="49" cy="51" rx="3.5" ry="4" fill="#231a16"/>
+    <ellipse cx="71" cy="51" rx="3.5" ry="4" fill="#231a16"/>
+    <!-- Eye Highlights -->
+    <circle cx="48" cy="49.5" r="1.3" fill="#ffffff"/>
+    <circle cx="70" cy="49.5" r="1.3" fill="#ffffff"/>
+
+    <!-- Eyebrows -->
+    <path d="M44 44 Q 49 41 54 43" stroke="#2c1d18" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <path d="M66 43 Q 71 41 76 44" stroke="#2c1d18" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+    <!-- Nose -->
+    <path d="M60 52 L58 58 L62 58" stroke="#d99973" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Friendly Smile -->
+    <path d="M52 63 Q 60 70 68 63" stroke="#9e4334" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    <path d="M54 64 Q 60 69 66 64" fill="#ffffff" opacity="0.7"/>
+
+    <!-- Cheeks (Blush) -->
+    <ellipse cx="44" cy="57" rx="3" ry="1.5" fill="#f79d84" opacity="0.5"/>
+    <ellipse cx="76" cy="57" rx="3" ry="1.5" fill="#f79d84" opacity="0.5"/>
+
+    <!-- Stylish Modern Hair -->
+    <path d="M36 43 C 36 24, 48 18, 60 18 C 72 18, 84 24, 84 43 C 84 46, 80 43, 76 39 C 68 34, 52 35, 43 40 C 39 42, 36 44, 36 43 Z" fill="url(#hairGrad)"/>
+    <!-- Hair Strands -->
+    <path d="M45 23 Q 56 16 68 21" stroke="#5d433b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <path d="M55 25 Q 65 20 75 26" stroke="#5d433b" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+    <!-- ========================================== -->
+    <!-- HEADPHONES / OPERATOR HEADSET               -->
+    <!-- ========================================== -->
+    
+    <!-- Headband (Over top of head) -->
+    <path d="M30 52 C 26 22, 94 22, 90 52" stroke="#26262b" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+    <path d="M34 50 C 30 25, 90 25, 86 50" stroke="url(#headsetRed)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+    <!-- Left Earcup -->
+    <rect x="26" y="44" width="10" height="22" rx="5" fill="#18181c" stroke="url(#headsetRed)" stroke-width="2"/>
+    <rect x="33" y="48" width="4" height="14" rx="2" fill="#3a3a44"/>
+
+    <!-- Right Earcup -->
+    <rect x="84" y="44" width="10" height="22" rx="5" fill="#18181c" stroke="url(#headsetRed)" stroke-width="2"/>
+    <rect x="83" y="48" width="4" height="14" rx="2" fill="#3a3a44"/>
+
+    <!-- Boom Microphone (Curving from left earcup towards mouth) -->
+    <path d="M33 60 Q 42 74 54 70" stroke="#2a2a30" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <path d="M33 60 Q 42 74 54 70" stroke="#777" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <!-- Mic Foam Tip -->
+    <rect x="52" y="67" width="7" height="5" rx="2.5" fill="#141416"/>
+    <!-- Glowing Green Online Mic LED -->
+    <circle cx="58" cy="69.5" r="1.5" fill="#00e676"/>
+    <circle cx="58" cy="69.5" r="3" fill="#00e676" opacity="0.35"/>
+
+  </g>
+
+  <!-- Green Online Checkmark Badge (Bottom Right) -->
+  <circle cx="94" cy="94" r="13" fill="#00e676" stroke="#080808" stroke-width="3"/>
+  <path d="M89 94 L93 98 L100 90" stroke="#080808" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
