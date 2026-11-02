@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <radialGradient id="avatarBg" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#262626"/>
+      <stop offset="60%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#080808"/>
+    </radialGradient>
+    <linearGradient id="skinTone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCD5BD"/>
+      <stop offset="50%" stop-color="#EDB89D"/>
+      <stop offset="100%" stop-color="#D79B7F"/>
+    </linearGradient>
+    <linearGradient id="hairDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3A271D"/>
+      <stop offset="50%" stop-color="#24140D"/>
+      <stop offset="100%" stop-color="#120A06"/>
+    </linearGradient>
+    <linearGradient id="suitDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2A2A"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0F0F0F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="200" height="200" rx="14" fill="url(#avatarBg)"/>
+
+  <!-- Subtle Red Rim Lighting behind -->
+  <circle cx="100" cy="85" r="70" fill="#E50914" opacity="0.12"/>
+
+  <!-- Hair Back Layer -->
+  <path d="M 60 70 C 50 100, 45 130, 60 155 C 68 170, 132 170, 140 155 C 155 130, 150 100, 140 70 C 130 35, 70 35, 60 70 Z" fill="url(#hairDark)"/>
+
+  <!-- Neck & Shoulders -->
+  <path d="M 88 115 L 112 115 L 118 140 L 82 140 Z" fill="url(#skinTone)"/>
+  <path d="M 50 195 L 75 140 L 125 140 L 150 195 Z" fill="url(#suitDark)"/>
+  <!-- White Blouse V-neck -->
+  <path d="M 90 140 L 100 162 L 110 140 Z" fill="#F8FAFC"/>
+  <!-- Dark Jacket Lapels -->
+  <path d="M 68 142 L 95 185 L 105 185 L 132 142 L 122 140 L 100 170 L 78 140 Z" fill="#1C1C1C"/>
+
+  <!-- Face Contour -->
+  <path d="M 72 75 C 72 115, 82 135, 100 135 C 118 135, 128 115, 128 75 C 128 50, 72 50, 72 75 Z" fill="url(#skinTone)"/>
+
+  <!-- Hair Front (Brunette Bob with waves) -->
+  <path d="M 68 65 C 75 42, 125 40, 132 65 C 138 90, 136 125, 130 135 C 127 125, 124 95, 123 85 C 110 65, 88 65, 76 85 C 74 100, 72 125, 70 135 C 64 125, 62 90, 68 65 Z" fill="url(#hairDark)"/>
+
+  <!-- Facial Features (Subtle, professional) -->
+  <!-- Eyebrows -->
+  <path d="M 80 75 Q 88 71 94 74" stroke="#24140D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 106 74 Q 112 71 120 75" stroke="#24140D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes -->
+  <ellipse cx="87" cy="82" rx="4.5" ry="3" fill="#24140D"/>
+  <ellipse cx="113" cy="82" rx="4.5" ry="3" fill="#24140D"/>
+  <circle cx="88.5" cy="81" r="1" fill="#FFFFFF"/>
+  <circle cx="114.5" cy="81" r="1" fill="#FFFFFF"/>
+
+  <!-- Nose -->
+  <path d="M 100 80 L 98 97 L 102 97" stroke="#C4846B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+
+  <!-- Lips -->
+  <path d="M 93 110 Q 100 108 107 110 Q 100 117 93 110 Z" fill="#C26A60"/>
+
+  <!-- Earrings (Small Pearl Studs) -->
+  <circle cx="70" cy="98" r="2.5" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="0.5"/>
+  <circle cx="130" cy="98" r="2.5" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="0.5"/>
+
+  <!-- Border Outline -->
+  <rect width="200" height="200" rx="14" fill="none" stroke="#333333" stroke-width="2"/>
+</svg>

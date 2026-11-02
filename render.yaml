@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: diana-patrol
+    env: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app_server.py
+    autoDeploy: true
+    healthCheckPath: /healthz

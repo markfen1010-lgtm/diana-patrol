@@ -1,0 +1,43 @@
+{
+  "project_name": "AI-Моніторинг презумпції невинуватості",
+  "target_person": {
+    "full_name": "Мудра Ірина Романівна",
+    "aliases": ["Ірина Мудра", "Мудра І.Р.", "Iryna Mudra", "ексзаступниця керівника ОП", "колишня заступниця міністра юстиції"],
+    "case_number": "991/10659/26",
+    "court": "Вищий антикорупційний суд"
+  },
+  "search_queries": [
+    "Мудра Ірина Романівна",
+    "Ірина Мудра",
+    "Ірина Мудра ВАКС",
+    "Мудра підозра",
+    "Мудра суд запобіжний захід",
+    "Мудра 150 млн застава",
+    "Мудра Форест Гамп НАБУ",
+    "Iryna Mudra court NABU"
+  ],
+  "telegram_channels": [
+    "sap_gov_ua",
+    "nabu_ua",
+    "tiukraine",
+    "suspilnenews",
+    "pravda_com_ua",
+    "hromadske_ua",
+    "slovoidilo_ua"
+  ],
+  "storage": {
+    "db_path": "monitoring.db",
+    "excel_path": "reports/Моніторинг_презумпції_невинуватості.xlsx",
+    "final_excel_path": "reports/Моніторинг_презумпції_невинуватості_final.xlsx"
+  },
+  "reporting": {
+    "email_to": "markfion10@gmail.com",
+    "email_subject_template": "AI-моніторинг: презумпція невинуватості — {date}",
+    "save_eml_preview": true,
+    "reports_dir": "reports"
+  },
+  "scheduler": {
+    "cron_time": "09:00",
+    "timezone": "Europe/Kyiv"
+  }
+}

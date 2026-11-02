@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="femidaGlow" cx="65%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#B81D24" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#080808" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="goldScales" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#CA8A04"/>
+      <stop offset="100%" stop-color="#854D0E"/>
+    </linearGradient>
+    <linearGradient id="metalBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="35%" stop-color="#94A3B8"/>
+      <stop offset="70%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="crimsonShade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#080808" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Glow -->
+  <circle cx="340" cy="260" r="240" fill="url(#femidaGlow)"/>
+
+  <g transform="translate(60, 20)">
+    <!-- Blindfolded Lady Justice Bust / Statue -->
+    <!-- Head and Hair -->
+    <path d="M 280 130 C 270 90, 310 60, 340 70 C 370 80, 390 120, 380 150 C 375 170, 360 190, 340 195 C 320 195, 290 170, 280 130 Z" fill="url(#metalBody)" opacity="0.95"/>
+    
+    <!-- Blindfold -->
+    <path d="M 305 120 C 320 115, 360 118, 375 125 C 378 135, 360 145, 335 142 C 310 140, 302 130, 305 120 Z" fill="#F8FAFC" opacity="0.9"/>
+    <path d="M 295 122 L 280 140 L 290 145 Z" fill="#CBD5E1" opacity="0.8"/>
+
+    <!-- Neck & Shoulders / Torso -->
+    <path d="M 325 195 L 345 195 L 355 240 L 430 290 C 440 370, 420 500, 380 560 L 240 560 C 230 480, 250 340, 290 270 L 325 195 Z" fill="url(#metalBody)" opacity="0.9"/>
+    
+    <!-- Robe Folds (Dramatic Roman Toga) -->
+    <path d="M 315 250 C 330 320, 350 420, 360 550" stroke="#0F172A" stroke-width="4" fill="none" opacity="0.6"/>
+    <path d="M 345 250 C 370 330, 390 440, 400 550" stroke="#0F172A" stroke-width="5" fill="none" opacity="0.6"/>
+    <path d="M 290 280 C 285 360, 295 460, 310 550" stroke="#0F172A" stroke-width="4" fill="none" opacity="0.6"/>
+    <path d="M 320 220 C 350 250, 400 270, 425 285" stroke="#E2E8F0" stroke-width="2" fill="none" opacity="0.4"/>
+
+    <!-- Left Arm holding the Scales of Justice forward -->
+    <!-- Arm -->
+    <path d="M 290 270 C 240 260, 190 240, 160 220 C 150 215, 145 225, 155 235 C 180 260, 230 295, 270 310 Z" fill="url(#metalBody)" opacity="0.95"/>
+    <!-- Hand -->
+    <circle cx="150" cy="220" r="10" fill="url(#goldScales)"/>
+
+    <!-- THE SCALES OF JUSTICE -->
+    <!-- Central Beam -->
+    <line x1="80" y1="220" x2="220" y2="220" stroke="url(#goldScales)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Fulcrum & Ring -->
+    <circle cx="150" cy="220" r="6" fill="#FEF08A" stroke="#713F12" stroke-width="1.5"/>
+    <path d="M 150 200 L 150 220" stroke="url(#goldScales)" stroke-width="3"/>
+    
+    <!-- Left Scale Pan -->
+    <line x1="90" y1="222" x2="65" y2="290" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <line x1="90" y1="222" x2="115" y2="290" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <line x1="90" y1="222" x2="90" y2="290" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <ellipse cx="90" cy="292" rx="30" ry="8" fill="url(#goldScales)" stroke="#FEF08A" stroke-width="1"/>
+    
+    <!-- Right Scale Pan -->
+    <line x1="210" y1="222" x2="185" y2="300" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <line x1="210" y1="222" x2="235" y2="300" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <line x1="210" y1="222" x2="210" y2="300" stroke="url(#goldScales)" stroke-width="1.5"/>
+    <ellipse cx="210" cy="302" rx="30" ry="8" fill="url(#goldScales)" stroke="#FEF08A" stroke-width="1"/>
+
+    <!-- Right Arm holding the Sword of Truth -->
+    <!-- Sword Blade pointing down/up -->
+    <path d="M 425 240 L 430 80 L 435 80 L 440 240 Z" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1" opacity="0.9"/>
+    <!-- Sword Crossguard -->
+    <rect x="410" y="240" width="45" height="6" rx="2" fill="url(#goldScales)"/>
+    <!-- Sword Pommel -->
+    <rect x="428" y="246" width="9" height="25" rx="2" fill="url(#metalBody)"/>
+    <circle cx="432.5" cy="275" r="5" fill="url(#goldScales)"/>
+  </g>
+
+  <!-- Dramatic Cinematic Vignette Gradient at Bottom -->
+  <rect x="0" y="380" width="500" height="220" fill="url(#crimsonShade)"/>
+</svg>
