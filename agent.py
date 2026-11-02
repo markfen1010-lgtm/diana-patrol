@@ -1070,7 +1070,48 @@ class EmailReporter:
         test_recipient = (test_recipient or user).strip()
 
         if not host:
-            return {"status": "ERROR", "message": "Не вказано адресу SMTP-сервера (наприклад, smtp.gmail.com)"}
+            return {"status": "ERROR", "message": "Не вказано адресу SMTP-сервера (наприклад, smtp.gmail.com або посилання на Webhook)"}
+
+        # 1. Підтримка Google Apps Script Webhook / HTTPS шлюзу (для хмари Render без блокувань)
+        if host.startswith("http://") or host.startswith("https://"):
+            try:
+                import urllib.request
+                import json
+                html_body = f"""
+                <div style="font-family: Arial, sans-serif; background: #080808; color: #f5f5f1; padding: 25px; border-radius: 8px; border: 1px solid #303030;">
+                    <h2 style="color: #46d369; margin-top: 0;">🎉 Підключення Google Webhook успішне!</h2>
+                    <p style="color: #e0e0e0; font-size: 14px; line-height: 1.6;">
+                        Вітаємо! Google Apps Script Webhook успішно підключено до застосунку <b>Патруль 🐾</b>.
+                    </p>
+                    <p style="color: #b3b3b3; font-size: 13px;">
+                        Тепер усі заплановані авто-звіти моніторингу надходитимуть із хмари 24/7 без блокування SMTP-портів.
+                    </p>
+                    <div style="background: #171717; border-left: 3px solid #e50914; padding: 12px 16px; margin: 20px 0; border-radius: 4px;">
+                        <span style="font-size: 12px; color: #888;">Шлюз:</span> <code style="color: #4da3ff;">Google Apps Script HTTPS</code><br>
+                        <span style="font-size: 12px; color: #888;">Отримувач:</span> <code style="color: #fff;">{test_recipient}</code><br>
+                        <span style="font-size: 12px; color: #888;">Час перевірки:</span> <code style="color: #fff;">{datetime.now().strftime('%d.%m.%Y %H:%M:%S')}</code>
+                    </div>
+                    <hr style="border: 0; border-top: 1px solid #303030; margin: 20px 0;">
+                    <p style="color: #777; font-size: 11px; margin: 0;">Адвокатське об'єднання | Автономний моніторинг презумпції невинуватості</p>
+                </div>
+                """
+                payload = json.dumps({
+                    "to": test_recipient,
+                    "subject": f"✅ Тестове підключення Патруль 🐾 (Google Webhook) — {datetime.now().strftime('%H:%M:%S')}",
+                    "html": html_body
+                }).encode("utf-8")
+                req = urllib.request.Request(host, data=payload, headers={"Content-Type": "application/json"})
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    resp_data = resp.read().decode("utf-8", errors="ignore")
+                    return {
+                        "status": "SUCCESS",
+                        "message": f"З'єднання успішне! Тестовий лист відправлено через Google Webhook на {test_recipient}. Перевірте Вхідні (та Спам)."
+                    }
+            except Exception as e:
+                return {
+                    "status": "ERROR",
+                    "error": f"Помилка надсилання через Google Webhook: {str(e)}"
+                }
 
         try:
             port = int(port)
@@ -1182,6 +1223,28 @@ class EmailReporter:
         is_smtp_active = bool(smtp_config and smtp_config.get("is_active") and host)
         
         if is_smtp_active:
+            # 1. Підтримка Google Apps Script Webhook / HTTPS шлюзу
+            if host.startswith("http://") or host.startswith("https://"):
+                try:
+                    import urllib.request
+                    import json
+                    payload = json.dumps({
+                        "to": recipient,
+                        "subject": subject,
+                        "html": html_content
+                    }).encode("utf-8")
+                    req = urllib.request.Request(host, data=payload, headers={"Content-Type": "application/json"})
+                    with urllib.request.urlopen(req, timeout=25) as resp:
+                        pass
+                    return {
+                        "status": "SENT_SMTP",
+                        "mode": "GOOGLE_WEBHOOK",
+                        "recipient": recipient,
+                        "message": f"Звіт успішно надіслано на {recipient} через Google Webhook"
+                    }
+                except Exception as e:
+                    print(f"[EmailReporter] Webhook error: {e}")
+
             try:
                 port = int(smtp_config.get("port", 465))
                 user = (smtp_config.get("user") or smtp_config.get("username") or "").strip()

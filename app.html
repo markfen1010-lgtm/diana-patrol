@@ -3094,6 +3094,9 @@
 
             <!-- Fast Presets -->
             <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                <button type="button" class="btn-subtle" onclick="applySmtpPreset('google_webhook')" style="display: flex; align-items: center; gap: 6px; border-color: rgba(70, 211, 105, 0.6); background: rgba(70, 211, 105, 0.08);">
+                    <span style="color: #46d369; font-weight: bold;">⚡</span> Google Webhook (Render 24/7)
+                </button>
                 <button type="button" class="btn-subtle" onclick="applySmtpPreset('gmail')" style="display: flex; align-items: center; gap: 6px; border-color: rgba(234,67,53,0.5);">
                     <span style="color: #EA4335; font-weight: bold;">●</span> Gmail (Google)
                 </button>
@@ -4985,7 +4988,21 @@
             const guide = document.getElementById('smtp-guide-box');
             const targetEmail = document.getElementById('sched-email') ? document.getElementById('sched-email').value.trim() : '';
 
-            if (type === 'gmail') {
+            if (type === 'google_webhook') {
+                if (hostInp) hostInp.value = 'https://script.google.com/macros/s/AKfycbyZ0SsyY8Fl3PUdmsNuvxqqNvcG_D8MHBL_UvRIoHAymGB2rRIjGylwkXamLaCfNocj6g/exec';
+                if (portInp) portInp.value = 443;
+                if (userInp) userInp.value = 'dimentor280977@gmail.com';
+                if (passInp) passInp.value = 'AKfycbyZ0SsyY8Fl3PUdmsNuvxqqNvcG_D8MHBL_UvRIoHAymGB2rRIjGylwkXamLaCfNocj6g';
+                if (guide) {
+                    guide.style.display = 'block';
+                    guide.innerHTML = `
+                        <div style="font-weight: 600; color: #46d369; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                            <span>🚀</span> Google Apps Script Webhook підключено!
+                        </div>
+                        <p style="margin: 0; color: #ccc;">Листи відправляються безпосередньо через захищений HTTPS порт 443 з вашого Gmail. Працює 24/7 у хмарі Render без обмежень портів.</p>
+                    `;
+                }
+            } else if (type === 'gmail') {
                 if (hostInp) hostInp.value = 'smtp.gmail.com';
                 if (portInp) portInp.value = 465;
                 if (userInp && (!userInp.value || userInp.value.indexOf('@') === -1)) {
