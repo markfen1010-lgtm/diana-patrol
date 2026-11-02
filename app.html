@@ -5115,7 +5115,10 @@
             const host = document.getElementById('smtp-host').value.trim();
             const port = parseInt(document.getElementById('smtp-port').value.trim()) || 465;
             const user = document.getElementById('smtp-user').value.trim();
-            const pass = document.getElementById('smtp-password').value.trim();
+            let pass = document.getElementById('smtp-password').value.trim();
+            if (!pass.includes('*')) {
+                pass = pass.replace(/\s+/g, '');
+            }
             const isActive = document.getElementById('smtp-active-chk').checked ? 1 : 0;
 
             return fetch('/api/smtp-config', {
@@ -5176,9 +5179,14 @@
                 return;
             }
 
-            // Proactive check for Gmail standard account password vs App Password
-            if (host.toLowerCase().includes('gmail.com')) {
-                const cleanPass = pass.replace(/\s+/g, '');
+            // Normalize password: strip whitespace if user pasted with spaces
+            let cleanPass = pass;
+            if (!pass.includes('*')) {
+                cleanPass = pass.replace(/\s+/g, '');
+            }
+
+            // Proactive check for Gmail standard account password vs App Password (only if not masked)
+            if (host.toLowerCase().includes('gmail.com') && !pass.includes('*')) {
                 if (cleanPass.length !== 16 || /[^a-z]/.test(cleanPass)) {
                     const proceed = confirm(
                         `⚠️ УВАГА ЩОДО ПАРОЛЯ GMAIL:\n\n` +
@@ -5209,7 +5217,7 @@
                     host: host,
                     port: port,
                     user: user,
-                    password: pass,
+                    password: cleanPass,
                     use_ssl: port === 465 ? 1 : 0,
                     from_email: user,
                     test_recipient: testEmail

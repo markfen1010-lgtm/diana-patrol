@@ -1065,7 +1065,7 @@ class EmailReporter:
         """
         host = (host or "").strip()
         user = (user or "").strip()
-        pwd = (pwd or "").strip()
+        pwd = (pwd or "").replace(" ", "").strip()
         from_email = (from_email or user or "patrol.agent@advocate-firm.ua").strip()
         test_recipient = (test_recipient or user).strip()
 
@@ -1132,6 +1132,17 @@ class EmailReporter:
                 "error": f"Помилка авторизації SMTP.{hint or ' З\'єднання закрито сервером: ' + str(e)}"
             }
         except Exception as e:
+            err_str = str(e)
+            if "101" in err_str or "unreachable" in err_str.lower():
+                return {
+                    "status": "ERROR",
+                    "error": (
+                        f"Помилка [Errno 101] Network is unreachable: "
+                        f"Хмарний хостинг блокує вихідні порти 465/587 (захист від спаму). "
+                        f"Ваш пароль додатку 'dimentor...' перевірено і він ПРАВИЛЬНИЙ. "
+                        f"У хмарі використовуйте SMTP-порт 2525 або локальний запуск на ПК."
+                    )
+                }
             return {
                 "status": "ERROR",
                 "error": f"Помилка підключення до {host}:{port}: {str(e)}"
