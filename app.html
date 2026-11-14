@@ -2630,13 +2630,14 @@
                 <button class="btn-subtle" onclick="openSectionInfo('materials')">ℹ️ Довідка</button>
             </div>
 
-            <!-- Filter Pills -->
-            <div class="chips-container" id="materials-filter-chips">
-                <span class="chip active" onclick="setMaterialsFilter('ALL', this)">Усі</span>
-                <span class="chip" onclick="setMaterialsFilter('АКТИ', this)">Акти</span>
-                <span class="chip" onclick="setMaterialsFilter('РІШЕННЯ', this)">Рішення</span>
-                <span class="chip" onclick="setMaterialsFilter('ДОКУМЕНТИ', this)">Документи</span>
-                <span class="chip" id="filter-chip-bookmarks" onclick="setMaterialsFilter('BOOKMARKS', this)" style="border-color: rgba(245,158,11,0.4); color: #FBBF24;">🔖 Обране (<span id="bookmarks-count-badge">0</span>)</span>
+            <!-- Documents Info & Clean All View -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
+                    📋 Реєстр усіх 36 процесуальних протоколів справи ВАКС № 991/10659/26
+                </span>
+                <span style="font-size: 11.5px; background: rgba(229,9,20,0.15); color: #ff8585; border: 1px solid rgba(229,9,20,0.3); padding: 2px 8px; border-radius: 6px; font-weight: 700;">
+                    36 ДОКУМЕНТІВ
+                </span>
             </div>
 
             <!-- Quick Search Input -->
@@ -3103,9 +3104,14 @@
                         </div>
                     </div>
 
-                    <!-- Large Primary Netflix Red Button (Screenshot 1) -->
-                    <button class="btn-netflix-primary full-width" onclick="saveNewSchedule()" style="height: 48px; font-size: 15px; font-weight: 700; border-radius: var(--radius-md); width: 100%; justify-content: center;">
-                        Зберегти розклад
+                    <!-- Direct Send Button (Prominent & Available Without Admin Login) -->
+                    <button id="btn-send-instant-report" class="btn-netflix-primary full-width" onclick="sendTestEmailNow()" style="height: 50px; font-size: 15.5px; font-weight: 800; border-radius: var(--radius-md); width: 100%; justify-content: center; box-shadow: 0 4px 18px rgba(229,9,20,0.5); margin-bottom: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                        <span>⚡</span><span>НАДІСЛАТИ ЗВІТ ЗАРАЗ НА EMAIL</span>
+                    </button>
+
+                    <!-- Save Schedule Secondary Button -->
+                    <button class="btn-netflix-secondary full-width" onclick="saveNewSchedule()" style="height: 44px; font-size: 14px; font-weight: 600; border-radius: var(--radius-md); width: 100%; justify-content: center; border-color: rgba(255,255,255,0.2);">
+                        📅 Зберегти для щоденної авто-розсилки 24/7
                     </button>
 
                     <p style="font-size: 11.5px; color: var(--text-muted); text-align: center; margin: 12px 0 4px 0; line-height: 1.4;">
@@ -5670,7 +5676,7 @@
             const email = (document.getElementById('sched-email') ? document.getElementById('sched-email').value.trim() : '') || 'markfen1010@gmail.com';
             const target = (document.getElementById('sched-target') ? document.getElementById('sched-target').value.trim() : '') || 'Мудра Ірина Романівна';
             const keywords = (document.getElementById('sched-keywords') ? document.getElementById('sched-keywords').value.trim() : '') || '#корупція, #хабар, ВАКС';
-            const btn = document.getElementById('btn-send-test-report');
+            const btn = document.getElementById('btn-send-instant-report') || document.getElementById('btn-send-test-report');
 
             if (btn) {
                 btn.disabled = true;

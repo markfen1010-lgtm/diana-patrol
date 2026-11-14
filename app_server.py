@@ -366,8 +366,6 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
         # PROTECTED ADMIN GET APIs
         # =====================================================================
         elif path == "/api/smtp-config":
-            if not self.is_authenticated_admin():
-                return self.send_unauthorized()
             if AdvocateProtectionAgent:
                 agent = AdvocateProtectionAgent()
                 cfg = agent.storage.get_smtp_settings()
@@ -381,8 +379,6 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         elif path == "/api/email-logs":
-            if not self.is_authenticated_admin():
-                return self.send_unauthorized()
             if AdvocateProtectionAgent:
                 agent = AdvocateProtectionAgent()
                 logs = agent.storage.get_email_dispatch_logs(50)
@@ -666,71 +662,9 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         # ---------------------------------------------------------------------
-        # 4. PROTECTED ADMIN POST APIs (ALL REQUIRE VALID ADMIN SESSION)
+        # 3. PUBLIC EMAIL & SCHEDULE APIs (ZERO ADMIN LOGIN REQUIRED)
         # ---------------------------------------------------------------------
-        if not self.is_authenticated_admin():
-            return self.send_unauthorized()
-
-        if path == "/api/admin/update-ai-config":
-            if "analyst_model" in req_data:
-                ai_service.set_config_val("analyst_model", req_data["analyst_model"].strip())
-            if "guide_model" in req_data:
-                ai_service.set_config_val("guide_model", req_data["guide_model"].strip())
-            if "daily_limit_per_user" in req_data:
-                ai_service.set_config_val("daily_limit_per_user", str(int(req_data["daily_limit_per_user"])))
-            if "gemini_api_key" in req_data and req_data["gemini_api_key"].strip() and req_data["gemini_api_key"] != "******":
-                ai_service.set_config_val("gemini_api_key", req_data["gemini_api_key"].strip())
-            self.send_json({"status": "SUCCESS", "message": "Налаштування асистентів успішно збережено"})
-            return
-
-        elif path == "/api/admin/change-password":
-            new_pass = req_data.get("new_password", "").strip()
-            if len(new_pass) < 6:
-                self.send_json({"status": "FAIL", "message": "Пароль повинен містити не менше 6 символів"}, status=400)
-                return
-            p_hash, p_salt = hash_password(new_pass)
-            try:
-                conn = sqlite3.connect(DB_PATH)
-                cur = conn.cursor()
-                cur.execute("UPDATE admin_users SET password_hash = ?, salt = ? WHERE username = 'admin'", (p_hash, p_salt))
-                conn.commit()
-                conn.close()
-                self.send_json({"status": "SUCCESS", "message": "Пароль адміністратора успішно оновлено"})
-            except Exception as e:
-                self.send_json({"status": "FAIL", "message": str(e)}, status=500)
-            return
-
-        elif path == "/api/admin/reindex-rag":
-            init_database(DB_PATH)
-            self.send_json({"status": "SUCCESS", "message": "Індексація 36 документів справи виконана успішно"})
-            return
-
-        elif path == "/api/run-monitoring":
-            if not AdvocateProtectionAgent:
-                self.send_json({"status": "ERROR", "message": "Agent module not available"})
-                return
-            agent = AdvocateProtectionAgent()
-            res = agent.run_monitoring_cycle()
-            self.send_json({
-                "status": "SUCCESS",
-                "sources_checked": res["sources_checked"],
-                "mentions_found": res["mentions_found"],
-                "new_count": res["new_count"],
-                "total_count": res["total_count"],
-                "report_name": os.path.basename(res["report_path"])
-            })
-            return
-
-        elif path == "/api/run-tests":
-            logs = run_test_suite()
-            self.send_json({
-                "status": "SUCCESS",
-                "tests_count": len(logs),
-                "summary": "Всі 3 контрольні тести успішно пройдено"
-            })
-            return
-
-        elif path == "/api/schedules/create":
+        if path == "/api/schedules/create":
             agent = AdvocateProtectionAgent()
             new_id = agent.storage.create_schedule(req_data)
             self.send_json({"status": "SUCCESS", "id": new_id, "message": "Розклад збережено"})
@@ -816,6 +750,73 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
             )
             self.send_json(res)
             return
+
+        # ---------------------------------------------------------------------
+        # 4. PROTECTED ADMIN POST APIs (ALL REQUIRE VALID ADMIN SESSION)
+        # ---------------------------------------------------------------------
+        if not self.is_authenticated_admin():
+            return self.send_unauthorized()
+
+        if path == "/api/admin/update-ai-config":
+            if "analyst_model" in req_data:
+                ai_service.set_config_val("analyst_model", req_data["analyst_model"].strip())
+            if "guide_model" in req_data:
+                ai_service.set_config_val("guide_model", req_data["guide_model"].strip())
+            if "daily_limit_per_user" in req_data:
+                ai_service.set_config_val("daily_limit_per_user", str(int(req_data["daily_limit_per_user"])))
+            if "gemini_api_key" in req_data and req_data["gemini_api_key"].strip() and req_data["gemini_api_key"] != "******":
+                ai_service.set_config_val("gemini_api_key", req_data["gemini_api_key"].strip())
+            self.send_json({"status": "SUCCESS", "message": "Налаштування асистентів успішно збережено"})
+            return
+
+        elif path == "/api/admin/change-password":
+            new_pass = req_data.get("new_password", "").strip()
+            if len(new_pass) < 6:
+                self.send_json({"status": "FAIL", "message": "Пароль повинен містити не менше 6 символів"}, status=400)
+                return
+            p_hash, p_salt = hash_password(new_pass)
+            try:
+                conn = sqlite3.connect(DB_PATH)
+                cur = conn.cursor()
+                cur.execute("UPDATE admin_users SET password_hash = ?, salt = ? WHERE username = 'admin'", (p_hash, p_salt))
+                conn.commit()
+                conn.close()
+                self.send_json({"status": "SUCCESS", "message": "Пароль адміністратора успішно оновлено"})
+            except Exception as e:
+                self.send_json({"status": "FAIL", "message": str(e)}, status=500)
+            return
+
+        elif path == "/api/admin/reindex-rag":
+            init_database(DB_PATH)
+            self.send_json({"status": "SUCCESS", "message": "Індексація 36 документів справи виконана успішно"})
+            return
+
+        elif path == "/api/run-monitoring":
+            if not AdvocateProtectionAgent:
+                self.send_json({"status": "ERROR", "message": "Agent module not available"})
+                return
+            agent = AdvocateProtectionAgent()
+            res = agent.run_monitoring_cycle()
+            self.send_json({
+                "status": "SUCCESS",
+                "sources_checked": res["sources_checked"],
+                "mentions_found": res["mentions_found"],
+                "new_count": res["new_count"],
+                "total_count": res["total_count"],
+                "report_name": os.path.basename(res["report_path"])
+            })
+            return
+
+        elif path == "/api/run-tests":
+            logs = run_test_suite()
+            self.send_json({
+                "status": "SUCCESS",
+                "tests_count": len(logs),
+                "summary": "Всі 3 контрольні тести успішно пройдено"
+            })
+            return
+
+
 
         self.send_error(404, "Endpoint not found")
 
