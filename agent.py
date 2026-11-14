@@ -710,7 +710,7 @@ class MonitoringStorage:
         port = int(settings.get("port") or 465)
         user = (settings.get("user") or settings.get("username") or "").strip()
         password = (settings.get("password") or "").strip()
-        from_email = (settings.get("from_email") or settings.get("sender_email") or user or "patrol.agent@advocate-firm.ua").strip()
+        from_email = (settings.get("from_email") or settings.get("sender_email") or user or "pomichnyk.agent@advocate-ai.ua").strip()
 
         if "use_ssl" in settings:
             use_ssl = 1 if settings["use_ssl"] in (1, "1", True) else 0
@@ -748,7 +748,7 @@ class MonitoringStorage:
             "port": 465,
             "user": "",
             "password": "",
-            "from_email": "patrol.agent@advocate-firm.ua",
+            "from_email": "pomichnyk.agent@advocate-ai.ua",
             "use_ssl": 1,
             "use_tls": 0,
             "is_active": 0
@@ -802,7 +802,7 @@ class EmailReporter:
     @staticmethod
     def generate_report(stats, new_records, total_records_count, excel_path):
         date_str = datetime.now().strftime("%d.%m.%Y")
-        subject = f"🐾 [DIANA PATROL] Звіт моніторингу презумпції невинуватості — {date_str}"
+        subject = f"⚖️ [ПОМІЧНИК] Звіт моніторингу презумпції невинуватості — {date_str}"
 
         has_new = len(new_records) > 0
         high_risk_records = [r for r in new_records if r.get("risk_level") == "HIGH"]
@@ -881,9 +881,9 @@ class EmailReporter:
         
         <!-- HEADER -->
         <div style="background: linear-gradient(135deg, #1f0b0d 0%, #141414 100%); padding: 24px; text-align: center; border-bottom: 1px solid rgba(229, 9, 20, 0.3);">
-            <div style="font-size: 26px; margin-bottom: 4px;">🐾 ⚖️</div>
+            <div style="font-size: 26px; margin-bottom: 4px;">⚖️</div>
             <h1 style="margin: 0; font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px;">
-                DIANA PATROL <span style="color: #E50914;">| ADVOCATE RADAR</span>
+                ПОМІЧНИК <span style="color: #E50914;">| ADVOCATE RADAR</span>
             </h1>
             <p style="margin: 6px 0 0; font-size: 13px; color: #a0a0a0;">
                 Автоматизований моніторинг дотримання презумпції невинуватості (ст. 62 КУ, ст. 6 § 2 ЄСПЛ)
@@ -941,8 +941,8 @@ class EmailReporter:
 
             <!-- DIRECT PORTAL ACTION BUTTON -->
             <div style="text-align: center; margin: 28px 0 16px;">
-                <a href="https://diana-patrol.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
-                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ DIANA PATROL ❯
+                <a href="https://pomichnyk.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
+                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ ПОМІЧНИК ❯
                 </a>
             </div>
 
@@ -953,14 +953,14 @@ class EmailReporter:
 
             <!-- FOOTER LEGAL NOTE -->
             <div style="background: #0d0d0d; border: 1px dashed #262626; border-radius: 10px; padding: 14px; margin-top: 20px; font-size: 11.5px; color: #777; line-height: 1.45;">
-                ⚖️ <strong>Адвокатська таємниця та правова кваліфікація:</strong> Звіт згенеровано автономним аналітичним комплексом «Diana Patrol» відповідно до вимог ст. 62 Конституції України, ст. 17 КПК України та ст. 6 § 2 Конвенції про захист прав людини.
+                ⚖️ <strong>Адвокатська таємниця та правова кваліфікація:</strong> Звіт згенеровано автономним аналітичним комплексом «Помічник» відповідно до вимог ст. 62 Конституції України, ст. 17 КПК України та ст. 6 § 2 Конвенції про захист прав людини.
             </div>
 
         </div>
 
         <!-- FOOTER -->
         <div style="background: #0c0c0c; padding: 16px 20px; text-align: center; border-top: 1px solid #1f1f1f; font-size: 11px; color: #666;">
-            🐾 «DIANA PATROL» | Адвокатське об'єднання захисту прав та свобод людини
+            ⚖️ «ПОМІЧНИК» | Адвокатське об'єднання захисту прав та свобод людини
         </div>
 
     </div>
@@ -978,7 +978,7 @@ class EmailReporter:
         high_count = search_res.get("high_count", sum(1 for r in results if r.get("risk_level") == "HIGH"))
         med_count = search_res.get("med_count", sum(1 for r in results if r.get("risk_level") == "MEDIUM"))
 
-        subject = f"🐾 [DIANA PATROL] Оновлений моніторинг презумпції невинуватості: {target_name} ({now_str})"
+        subject = f"⚖️ [ПОМІЧНИК] Оновлений моніторинг презумпції невинуватості: {target_name} ({now_str})"
 
         items_html = ""
         for idx, item in enumerate(results[:15], 1):
@@ -1044,7 +1044,7 @@ class EmailReporter:
         <div style="background: linear-gradient(135deg, #1f0b0d 0%, #141414 100%); padding: 24px; text-align: center; border-bottom: 1px solid rgba(229, 9, 20, 0.3);">
             <div style="font-size: 26px; margin-bottom: 4px;">🐾 📡</div>
             <h1 style="margin: 0; font-size: 20px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.5px;">
-                DIANA PATROL <span style="color: #E50914;">| ADVOCATE RADAR</span>
+                ПОМІЧНИК <span style="color: #E50914;">| ADVOCATE RADAR</span>
             </h1>
             <p style="margin: 6px 0 0; font-size: 13px; color: #a0a0a0;">
                 Автоматичний моніторинг публічних висловлювань та презумпції невинуватості
@@ -1097,8 +1097,8 @@ class EmailReporter:
 
             <!-- DIRECT PORTAL ACTION BUTTON -->
             <div style="text-align: center; margin: 26px 0 16px;">
-                <a href="https://diana-patrol.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
-                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ DIANA PATROL ❯
+                <a href="https://pomichnyk.onrender.com/" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #E50914; color: #ffffff !important; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-weight: 800; font-size: 13.5px; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(229,9,20,0.4);">
+                    🌐 ВІДКРИТИ ОНЛАЙН-ПОРТАЛ ПОМІЧНИК ❯
                 </a>
             </div>
 
@@ -1110,7 +1110,7 @@ class EmailReporter:
 
         <!-- FOOTER -->
         <div style="background: #0c0c0c; padding: 14px 20px; text-align: center; border-top: 1px solid #1f1f1f; font-size: 11px; color: #666;">
-            🐾 «DIANA PATROL» | Розроблено для дисципліни «Адвокатура та адвокатська діяльність»
+            ⚖️ «ПОМІЧНИК» | Розроблено для дисципліни «Адвокатура та адвокатська діяльність»
         </div>
     </div>
 </body>
@@ -1126,7 +1126,7 @@ class EmailReporter:
         host = (host or "").strip()
         user = (user or "").strip()
         pwd = (pwd or "").replace(" ", "").strip()
-        from_email = (from_email or user or "patrol.agent@advocate-firm.ua").strip()
+        from_email = (from_email or user or "pomichnyk.agent@advocate-ai.ua").strip()
         test_recipient = (test_recipient or user).strip()
 
         if not host:
@@ -1141,7 +1141,7 @@ class EmailReporter:
                 <div style="font-family: Arial, sans-serif; background: #080808; color: #f5f5f1; padding: 25px; border-radius: 8px; border: 1px solid #303030;">
                     <h2 style="color: #46d369; margin-top: 0;">🎉 Підключення Google Webhook успішне!</h2>
                     <p style="color: #e0e0e0; font-size: 14px; line-height: 1.6;">
-                        Вітаємо! Google Apps Script Webhook успішно підключено до застосунку <b>Патруль 🐾</b>.
+                        Вітаємо! Google Apps Script Webhook успішно підключено до застосунку <b>ПОМІЧНИК</b>.
                     </p>
                     <p style="color: #b3b3b3; font-size: 13px;">
                         Тепер усі заплановані авто-звіти моніторингу надходитимуть із хмари 24/7 без блокування SMTP-портів.
@@ -1157,7 +1157,7 @@ class EmailReporter:
                 """
                 payload = json.dumps({
                     "to": test_recipient,
-                    "subject": f"✅ Тестове підключення Патруль 🐾 (Google Webhook) — {datetime.now().strftime('%H:%M:%S')}",
+                    "subject": f"✅ Тестове підключення ПОМІЧНИК (Google Webhook) — {datetime.now().strftime('%H:%M:%S')}",
                     "html": html_body
                 }).encode("utf-8")
                 req = urllib.request.Request(host, data=payload, headers={"Content-Type": "application/json"})
@@ -1186,14 +1186,14 @@ class EmailReporter:
 
             if test_recipient:
                 msg = MIMEMultipart("alternative")
-                msg["From"] = f"🐾 Щенячий Патруль <{from_email}>"
+                msg["From"] = f"ПОМІЧНИК | Advocate AI <{from_email}>"
                 msg["To"] = test_recipient
                 msg["Subject"] = f"✅ Тестове підключення SMTP успішне — {datetime.now().strftime('%H:%M:%S')}"
                 html = f"""
                 <div style="font-family: Arial, sans-serif; background: #080808; color: #f5f5f1; padding: 25px; border-radius: 8px; border: 1px solid #303030;">
                     <h2 style="color: #46d369; margin-top: 0;">🎉 Підключення пошти успішне!</h2>
                     <p style="color: #e0e0e0; font-size: 14px; line-height: 1.6;">
-                        Вітаємо! Поштовий сервер <b>{host}:{port}</b> успішно налаштовано для застосунку <b>Щенячий Патруль — Diana Edition</b>.
+                        Вітаємо! Поштовий сервер <b>{host}:{port}</b> успішно налаштовано для застосунку <b>ПОМІЧНИК — Advocate AI</b>.
                     </p>
                     <p style="color: #b3b3b3; font-size: 13px;">
                         Тепер усі заплановані авто-звіти моніторингу та миттєві сповіщення про нові публікації будуть надходити на цю адресу без затримок.
@@ -1258,8 +1258,8 @@ class EmailReporter:
         os.makedirs(reports_dir, exist_ok=True)
         
         msg = MIMEMultipart("mixed")
-        from_addr = smtp_config.get("from_email") if (smtp_config and smtp_config.get("from_email")) else "patrol.agent@advocate-firm.ua"
-        msg["From"] = f"🐾 Щенячий Патруль <{from_addr}>"
+        from_addr = smtp_config.get("from_email") if (smtp_config and smtp_config.get("from_email")) else "pomichnyk.agent@advocate-ai.ua"
+        msg["From"] = f"ПОМІЧНИК | Advocate AI <{from_addr}>"
         msg["To"] = recipient
         msg["Subject"] = subject
         

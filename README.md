@@ -1,4 +1,4 @@
-# 🐾 Патруль 🐾 (Diana Patrol) — Cloud Production Release
+# 🐾 Помічник 🐾 (Помічник | Advocate AI) — Cloud Production Release
 
 Автономний вебзастосунок та AI-агент моніторингу захисту презумпції невинуватості у стилі Netflix Dark Cinema.
 
@@ -8,13 +8,13 @@
    ```bash
    git init
    git add .
-   git commit -m "Diana Patrol UI 2.0 Production Release"
+   git commit -m "Помічник | Advocate AI UI 2.0 Production Release"
    git branch -M main
-   git remote add origin https://github.com/<YOUR_USERNAME>/diana-patrol.git
+   git remote add origin https://github.com/<YOUR_USERNAME>/pomichnyk.git
    git push -u origin main
    ```
 2. Перейдіть на [dashboard.render.com](https://dashboard.render.com/) -> **New +** -> **Web Service**.
-3. Підключіть свій GitHub-репозиторій `diana-patrol`.
+3. Підключіть свій GitHub-репозиторій `pomichnyk`.
 4. Render автоматично розпізнає конфігурацію з `render.yaml` або вкажіть:
    - **Environment**: Python
    - **Build Command**: `pip install -r requirements.txt`
@@ -22,7 +22,7 @@
    - **Plan**: Free
 5. Натисніть **Deploy Web Service**.
 6. Ваш застосунок отримає постійну захищену HTTPS-адресу, наприклад:
-   `https://diana-patrol.onrender.com`
+   `https://pomichnyk.onrender.com`
 
 ## 📦 Вміст збірки
 - `app.html` — Оптимізований фронтенд застосунку з PWA, анімацією лапи, вкладками та темною темою.

@@ -34,7 +34,7 @@ EXCEL_ANALYSIS = os.path.join(BASE_DIR, "Аналіз_матеріалів_об�
 # Ensure reports directory exists
 os.makedirs(REPORTS_DIR, exist_ok=True)
 
-GLOBAL_URL = os.environ.get("RENDER_EXTERNAL_URL", "https://diana-patrol.onrender.com")
+GLOBAL_URL = os.environ.get("RENDER_EXTERNAL_URL", "https://pomichnyk.onrender.com")
 
 SESSION_COOKIE_NAME = "admin_session"
 SESSION_DURATION_HOURS = 72
@@ -803,7 +803,7 @@ class TacticalHUDHandler(http.server.SimpleHTTPRequestHandler):
                 if not user:
                     user = old_cfg.get("user", "")
             use_ssl = bool(req_data.get("use_ssl", True)) if "use_ssl" in req_data else (port == 465)
-            from_email = req_data.get("from_email") or user or "patrol.agent@advocate-firm.ua"
+            from_email = req_data.get("from_email") or user or "pomichnyk.agent@advocate-ai.ua"
             test_recipient = req_data.get("test_recipient") or req_data.get("recipient_email") or user or "markfion10@gmail.com"
             res = EmailReporter.test_smtp_connection(
                 host=host,
@@ -852,7 +852,7 @@ def start_server():
         except Exception:
             pass
         print("\n=======================================================")
-        print("🐾 [DIANA PATROL / ПАТРУЛЬ 🐾] CLOUD PRODUCTION SERVER")
+        print("⚖️ [ПОМІЧНИК | ADVOCATE AI] CLOUD PRODUCTION SERVER")
         print(f"Port: {PORT}")
         print(f"Public External URL: {GLOBAL_URL}")
         print(f"Base Directory: {BASE_DIR}")

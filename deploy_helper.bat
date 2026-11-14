@@ -1,10 +1,10 @@
 @echo off
 chcp 65001 >nul
 echo =======================================================
-echo   🐾 ПАТРУЛЬ 🐾 - ДЕПЛОЙ НА GITHUB ТА RENDER.COM
+echo   🐾 ПОМІЧНИК 🐾 - ДЕПЛОЙ НА GITHUB ТА RENDER.COM
 echo =======================================================
 echo.
-set /p REPO_URL="Введіть URL вашого репозиторію на GitHub (наприклад, https://github.com/USER/diana-patrol.git): "
+set /p REPO_URL="Введіть URL вашого репозиторію на GitHub (наприклад, https://github.com/USER/pomichnyk.git): "
 if "%REPO_URL%"=="" (
     echo [Помилка] URL не введено.
     pause

@@ -101,6 +101,32 @@ def init_database(db_path=DB_PATH):
         )
     """)
 
+    # 6. SMTP Settings table (with Google Apps Script Webhook default)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS smtp_settings (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
+            host TEXT,
+            port INTEGER,
+            user TEXT,
+            password TEXT,
+            from_email TEXT,
+            use_ssl INTEGER DEFAULT 1,
+            is_active INTEGER DEFAULT 1
+        )
+    """)
+    cur.execute("""
+        INSERT INTO smtp_settings (id, host, port, user, password, from_email, use_ssl, is_active)
+        VALUES (1, 'https://script.google.com/macros/s/AKfycbyZ0SsyY8Fl3PUdmsNuvxqqNvcG_D8MHBL_UvRIoHAymGB2rRIjGylwkXamLaCfNocj6g/exec', 443, 'dimentor280977@gmail.com', 'AKfycbyZ0SsyY8Fl3PUdmsNuvxqqNvcG_D8MHBL_UvRIoHAymGB2rRIjGylwkXamLaCfNocj6g', 'dimentor280977@gmail.com', 1, 1)
+        ON CONFLICT(id) DO UPDATE SET
+            host=excluded.host,
+            port=excluded.port,
+            user=excluded.user,
+            password=excluded.password,
+            from_email=excluded.from_email,
+            use_ssl=excluded.use_ssl,
+            is_active=1
+    """)
+
     # Default settings
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     defaults = {
@@ -119,16 +145,18 @@ def init_database(db_path=DB_PATH):
 
     # Check admin user
     cur.execute("SELECT COUNT(*) FROM admin_users")
+    admin_pass = os.environ.get("ADMIN_PASSWORD", "123456789A")
+    p_hash, p_salt = hash_password(admin_pass)
     if cur.fetchone()[0] == 0:
-        # Initial admin user
-        # In production, can be set via env ADMIN_PASSWORD or changed in admin panel
-        admin_pass = os.environ.get("ADMIN_PASSWORD", "123456789A")
-        p_hash, p_salt = hash_password(admin_pass)
         cur.execute("""
             INSERT INTO admin_users (username, password_hash, salt, created_at)
             VALUES (?, ?, ?, ?)
         """, ("admin", p_hash, p_salt, now_str))
         print(f"[DB Setup] Created default admin user 'admin'.")
+    else:
+        cur.execute("""
+            UPDATE admin_users SET password_hash = ?, salt = ? WHERE username = 'admin'
+        """, (p_hash, p_salt))
 
     # Index RAG documents if empty
     cur.execute("SELECT COUNT(*) FROM rag_documents")

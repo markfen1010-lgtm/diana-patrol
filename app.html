@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <!-- iPhone / iOS Home Screen & PWA Configuration -->
-    <title>Патруль 🐾</title>
-    <meta name="apple-mobile-web-app-title" content="Патруль 🐾">
-    <meta name="application-name" content="Патруль 🐾">
+    <title>ПОМІЧНИК | ADVOCATE AI</title>
+    <meta name="apple-mobile-web-app-title" content="Помічник">
+    <meta name="application-name" content="Помічник">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#080808">
@@ -328,16 +328,20 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            height: var(--header-h);
-            background-color: rgba(8, 8, 8, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            min-height: calc(62px + env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-left: max(16px, env(safe-area-inset-left, 0px));
+            padding-right: max(16px, env(safe-area-inset-right, 0px));
+            padding-bottom: 4px;
+            background-color: rgba(8, 8, 8, 0.96);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
             max-width: 100vw;
+            box-sizing: border-box;
         }
         .header-brand {
             display: flex;
@@ -1870,7 +1874,7 @@
         }
     
 /* ========================================================================== */
-/* DIANA PATROL AI ASSISTANTS & ADMIN STYLES (NETFLIX DARK CINEMA)            */
+/* POMICHNYK AI ASSISTANTS & ADMIN STYLES (NETFLIX DARK CINEMA)            */
 /* ========================================================================== */
 
 /* --- Floating Paw FAB (Site Guide) --- */
@@ -2073,7 +2077,7 @@
     color: #fff;
 }
 .guide-input-wrap {
-    padding: 12px;
+    padding: 12px 14px calc(14px + env(safe-area-inset-bottom, 0px)) 14px;
     background: #161616;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
@@ -2111,7 +2115,7 @@
 
 /* --- AI Analyst Screen (#tab-ai-analyst) --- */
 .analyst-container {
-    padding: 0 0 30px 0;
+    padding: 0 0 calc(var(--nav-bottom-h) + 40px) 0;
     max-width: 960px;
     width: 100%;
     margin: 0 auto;
@@ -2396,10 +2400,7 @@
                     <path d="M 50,52 C 38,52 28,60 25,71 C 22,81 27,90 36,92 C 42,93 47,89 50,87 C 53,89 58,93 64,92 C 73,90 78,81 75,71 C 72,60 62,52 50,52 Z"/>
                 </svg>
             </div>
-            <div class="brand-text-box">
-                <span class="brand-title">ЩЕНЯЧИЙ ПАТРУЛЬ</span>
-                <span class="brand-subtitle">DIANA EDITION</span>
-            </div>
+            <div class="brand-text-box"><span class="brand-title" style="font-size: 17px; font-weight: 900; letter-spacing: 1.5px; color: #FFFFFF; text-shadow: 0 0 16px rgba(229,9,20,0.6);">ПОМІЧНИК</span><span class="brand-subtitle" style="font-size: 10px; font-weight: 700; color: #E50914; letter-spacing: 1.4px;">ADVOCATE AI SYSTEM</span></div>
         </a>
 
         <div class="header-actions">
@@ -2429,7 +2430,8 @@
         <button class="pill-btn" id="pill-materials" onclick="switchTab('materials')">Матеріали</button>
         <button class="pill-btn" id="pill-hearings" onclick="switchTab('hearings')">Суд</button>
         <button class="pill-btn" id="pill-custom-search" onclick="switchTab('custom-search')">Радар</button>
-        <button class="pill-btn" id="pill-ai-analyst" onclick="switchTab('ai-analyst')">⚖️ Аналітик Роман</button>
+        <button class="pill-btn" id="pill-ai-analyst" onclick="switchTab('ai-analyst')">🤖 ШІ-Аналітик</button>
+        <button class="pill-btn" id="pill-email" onclick="switchTab('email')">✉️ Поштовий робот</button>
     </nav>
 
     <!-- ================================================================= -->
@@ -3254,8 +3256,8 @@
                 <div class="analyst-hero-card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                         <div style="flex: 1; min-width: 200px;">
-                            <span class="hero-category" style="color: #ff8585; font-size: 11px;">ПРАВОВА ЕКСПЕРТИЗА ТА ДОСЬЄ ВАКС</span>
-                            <h1 style="font-size: 20px; font-weight: 800; color: #fff; margin: 3px 0; word-break: break-word;">Юридичний аналітик Роман</h1>
+                            <span class="hero-category" style="color: #ff8585; font-size: 11px;">RAG AI СИСТЕМА ЗАХИСТУ ВАКС</span>
+                            <h1 style="font-size: 20px; font-weight: 800; color: #fff; margin: 3px 0; word-break: break-word;">Юридичний ШІ-Аналітик</h1>
                             <p style="color: #a0a0a0; font-size: 12px; margin: 0; line-height: 1.4;">Аналітичне опрацювання 36 процесуальних протоколів, засідань ВАКС № 991/10659/26 та позиції захисту</p>
                         </div>
                         <div id="analyst-quota-badge" class="analyst-quota-pill" style="align-self: flex-start;">
@@ -3303,18 +3305,18 @@
                         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
                             <div style="display: flex; align-items: center; gap: 6px;">
                                 <span style="font-size: 18px;">⚖️</span>
-                                <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний аналітик Роман</span>
+                                <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний ШІ-Аналітик</span>
                             </div>
                             <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4); white-space: nowrap;">● НА ЗВ'ЯЗКУ</span>
                         </div>
-                        <p style="margin: 0 0 8px 0; word-break: break-word; overflow-wrap: break-word;">Вітаю! Я провідний юридичний аналітик команди захисту у справі ВАКС № 991/10659/26 (щодо судді Мудрої І.Р.). Я особисто детально опрацював усі <b>36 процесуальних протоколів</b> сторони обвинувачення, стенограми судових засідань та підготував доказову базу для захисту.</p>
+                        <p style="margin: 0 0 8px 0; word-break: break-word; overflow-wrap: break-word;">🤖 <b>Вітаю! Я інтелектуальний юридичний ШІ-аналітик системи «Помічник» у справі ВАКС № 991/10659/26 (щодо Мудрої І.Р.).</b><br>Я опрацював усі <b>36 процесуальних протоколів</b> сторони обвинувачення, стенограми засідань та правову позицію захисту. Готовий надати миттєвий аналіз доказів, процесуальних порушень та норм КПК.</p>
                         <p style="margin: 0; font-size: 12.5px; color: #bbb; word-break: break-word; overflow-wrap: break-word;">Поставте мені будь-яке запитання щодо матеріалів справи, нестиковок у протоколах обшуків, оцінки телефонів чи розміру застави, або скористайтеся швидкими темами вище.</p>
                     </div>
                 </div>
 
                 <!-- Input Box -->
                 <div class="analyst-input-card">
-                    <textarea id="analyst-user-input" class="analyst-textarea" placeholder="Введіть запитання до аналітика Романа (наприклад: «Що заявляв захист щодо протоколу №12?») ..." onkeydown="handleAnalystKey(event)"></textarea>
+                    <textarea id="analyst-user-input" class="analyst-textarea" placeholder="Поставте запитання ШІ-аналітику (наприклад: «Що заявляв захист щодо протоколу №12?») ..." onkeydown="handleAnalystKey(event)"></textarea>
                     <button id="analyst-send-btn" class="guide-send-btn" onclick="sendAnalystMessage()" title="Надіслати запит">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -3328,7 +3330,7 @@
 
 
         <!-- ============================================================= -->
-        <!-- TAB 10: ЗАХИЩЕНА АДМІНПАНЕЛЬ (DIANA PATROL — ADMIN)         -->
+        <!-- TAB 10: ЗАХИЩЕНА АДМІНПАНЕЛЬ (Помічник — Адмінпанель)         -->
         <!-- ============================================================= -->
         <section id="tab-admin" class="tab-panel">
             <div class="analyst-container">
@@ -3339,7 +3341,7 @@
                         <div>
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <span style="font-size: 20px;">🔒</span>
-                                <h1 style="font-size: 22px; font-weight: 800; color: #fff; margin: 0;">Diana Patrol — Admin</h1>
+                                <h1 style="font-size: 22px; font-weight: 800; color: #fff; margin: 0;">Помічник — Адмінпанель</h1>
                                 <span class="badge-status-online" style="font-size: 11px;">ПІДКЛЮЧЕНО</span>
                             </div>
                             <p style="color: #8c8c8c; font-size: 13px; margin: 4px 0 0 0;">Централізована панель керування конфігурацією, сервісами та квотами ШІ</p>
@@ -3601,7 +3603,7 @@
                                     <span style="font-size: 20px;">⚖️</span>
                                 </div>
                                 <div class="sheet-item-texts">
-                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #ff9999;">Юридичний аналітик Роман</span>
+                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #ff9999;">🤖 Юридичний ШІ-Аналітик</span>
                                     <span class="sheet-item-sub">Правовий розбір 36 протоколів ВАКС</span>
                                 </div>
                             </div>
@@ -3611,10 +3613,10 @@
                         <div class="sheet-item tool-searchable-item" onclick="toggleAiGuide(); closeMoreMenu();">
                             <div class="sheet-item-left">
                                 <div class="tools-item-icon-box" style="padding: 2px; border-color: rgba(229,9,20,0.4);">
-                                    <img src="/artur_avatar.svg" alt="Артур" style="width: 32px; height: 32px; border-radius: 50%;">
+                                    <img src="/ai_operator.svg" alt="ШІ-Оператор" style="width: 32px; height: 32px; border-radius: 50%;">
                                 </div>
                                 <div class="sheet-item-texts">
-                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #fff;">Оператор Артур (онлайн)</span>
+                                    <span class="sheet-item-title" style="font-size: 15px; font-weight: 600; color: #fff;">🤖 ШІ-Оператор «Помічник»</span>
                                     <span class="sheet-item-sub">Підтримка та навігація порталом</span>
                                 </div>
                             </div>
@@ -3896,7 +3898,7 @@
                 </div>
                 <ol style="margin: 6px 0 6px 18px; padding: 0; display: flex; flex-direction: column; gap: 4px;">
                     <li>Перейдіть за посиланням: <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" style="color: #4da3ff; text-decoration: underline;">myaccount.google.com/apppasswords</a></li>
-                    <li>Введіть назву «Патруль» та натисніть «Створити».</li>
+                    <li>Введіть назву «Помічник» та натисніть «Створити».</li>
                     <li>Вставте згенеровані 16 літер у поле пароля вище.</li>
                 </ol>
             </div>
@@ -4003,10 +4005,7 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px;">
-                <button id="doc-modal-ai-btn" class="btn-netflix-secondary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(229,9,20,0.5); color: #ff9999;" onclick="triggerDocModalAiAnalysis()">
-                    <span style="font-size: 15px;">📋</span>
-                    <span>Довідка аналітика Романа</span>
-                </button>
+                <button id="doc-modal-ai-btn" class="btn-netflix-primary" style="padding: 10px 18px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; box-shadow: 0 4px 18px rgba(229,9,20,0.45); cursor: pointer;" onclick="triggerDocModalAiAnalysis()"><span style="font-size: 16px;">🤖</span><span>Довідка ШІ-аналітика</span></button>
                 <button id="doc-modal-video-btn"  class="btn-netflix-primary" style="padding: 9px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -4082,7 +4081,7 @@
             <!-- Global URL -->
             <div style="background: #181818; padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 6px;">
                 <span style="font-size: 11px; font-weight: 700; color: var(--accent-red); text-transform: uppercase;">🌐 Глобальне посилання (Інше місто / 4G / Wi-Fi):</span>
-                <div style="font-family: var(--font-mono); font-size: 13px; color: #FFF; word-break: break-all;" id="global-url-display">https://diana-patrol.loca.lt</div>
+                <div style="font-family: var(--font-mono); font-size: 13px; color: #FFF; word-break: break-all;" id="global-url-display">https://pomichnyk.loca.lt</div>
                 <div style="font-size: 11px; color: #FBBF24;">
                     🔑 Пароль тунелю (якщо запитає сайт): <strong id="global-ip-display" style="color: #FFF;">89.105.227.39</strong>
                 </div>
@@ -4787,7 +4786,7 @@
         function copyGlobalLink() {
             const url = document.getElementById('global-url-display').innerText;
             const ip = document.getElementById('global-ip-display').innerText;
-            const msg = `🐾 ЩЕНЯЧИЙ ПАТРУЛЬ | ADVOCATE AI\nПосилання: ${url}\nПароль: ${ip}`;
+            const msg = `⚖️ ПОМІЧНИК | ADVOCATE AI\nПосилання: ${url}\nПароль: ${ip}`;
             navigator.clipboard.writeText(msg).then(() => {
                 alert('Глобальне посилання скопійовано!\n\n' + msg);
             });
@@ -5005,7 +5004,7 @@
 
         function getBookmarks() {
             try {
-                return JSON.parse(localStorage.getItem('diana_patrol_bookmarks') || '[]');
+                return JSON.parse((localStorage.getItem('pomichnyk_bookmarks') || localStorage.getItem('diana_patrol_bookmarks')) || '[]');
             } catch(e) {
                 return [];
             }
@@ -5026,7 +5025,7 @@
             } else {
                 bms.push(docNum);
             }
-            localStorage.setItem('diana_patrol_bookmarks', JSON.stringify(bms));
+            localStorage.setItem('pomichnyk_bookmarks', JSON.stringify(bms));
             updateBookmarksBadge();
             filterMaterials();
         }
@@ -5782,7 +5781,7 @@
                         </div>
                         <ol style="margin: 6px 0 6px 20px; padding: 0; display: flex; flex-direction: column; gap: 4px;">
                             <li>Відкрийте <a href="https://myaccount.google.com/apppasswords" target="_blank" style="color: #4da3ff; text-decoration: underline;">myaccount.google.com/apppasswords</a> у браузері.</li>
-                            <li>У полі «Назва додатка» введіть <b>Щенячий Патруль</b> та натисніть «Створити».</li>
+                            <li>У полі «Назва додатка» введіть <b>Помічник</b> та натисніть «Створити».</li>
                             <li>Скопіюйте згенерований 16-значний пароль (наприклад: <code>abcd efgh ijkl mnop</code>) та вставте його в поле «Пароль додатку».</li>
                             <li><i>(Звичайний пароль від пошти Google блокує для сторонніх програм із міркувань безпеки).</i></li>
                         </ol>
@@ -5913,7 +5912,7 @@
                     port: port,
                     user: user,
                     password: pass,
-                    from_email: user || 'patrol.agent@advocate-firm.ua',
+                    from_email: user || 'pomichnyk.agent@advocate-ai.ua',
                     use_ssl: port === 465 ? 1 : 0,
                     is_active: isActive
                 })
@@ -6031,7 +6030,7 @@
                             <ol style="margin: 0 0 10px 18px; padding: 0; font-size: 12px; line-height: 1.6; color: #ddd;">
                                 <li>Google відхиляє звичайний пароль від пошти — потрібен 16-значний <b>Пароль додатку</b>.</li>
                                 <li>Перейдіть за посиланням нижче в налаштування Google Акаунту.</li>
-                                <li>Введіть назву «Патруль», натисніть <b>Створити</b> та скопіюйте 16 букв (наприклад <code>abcd efgh ijkl mnop</code>) у поле пароля.</li>
+                                <li>Введіть назву «Помічник», натисніть <b>Створити</b> та скопіюйте 16 букв (наприклад <code>abcd efgh ijkl mnop</code>) у поле пароля.</li>
                             </ol>
                             <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" 
                                style="display: inline-block; background: #e50914; color: #fff; padding: 8px 14px; border-radius: 4px; text-decoration: none; font-weight: 700; font-size: 12px;">
@@ -6132,7 +6131,7 @@
         };
     
         // =====================================================================
-        // DIANA PATROL — AI ASSISTANTS & SECURE ADMIN CONTROLLER
+        // POMICHNYK — AI ASSISTANTS & SECURE ADMIN CONTROLLER
         // =====================================================================
         let currentActiveTab = 'dashboard';
         let currentModalDocNum = null;
@@ -6226,7 +6225,7 @@
             typingBubble.style.display = 'flex';
             typingBubble.style.gap = '10px';
             typingBubble.style.alignItems = 'center';
-            typingBubble.innerHTML = '<img src="/artur_avatar.svg" alt="Артур" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #E50914;"><i>Оператор Артур друкує відповідь...</i>';
+            typingBubble.innerHTML = '<span style="font-size: 20px;">🤖</span><i>ШІ-Оператор формує відповідь...</i>';
             stream.appendChild(typingBubble);
             stream.scrollTop = stream.scrollHeight;
 
@@ -6261,7 +6260,7 @@
                 aiBubble.style.gap = '10px';
                 aiBubble.style.alignItems = 'flex-start';
                 aiBubble.innerHTML = `
-                    <img src="/artur_avatar.svg" alt="Артур" style="width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid #E50914; flex-shrink: 0; margin-top: 2px; box-shadow: 0 0 6px rgba(229,9,20,0.3);">
+                    <img src="/ai_operator.svg" alt="ШІ-Оператор" style="width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid #E50914; flex-shrink: 0; margin-top: 2px; box-shadow: 0 0 6px rgba(229,9,20,0.3);">
                     <div style="flex: 1;">
                         ${replyHtml}
                         ${buttonsHtml}
@@ -6369,7 +6368,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
                         <div style="display: flex; align-items: center; gap: 6px;">
                             <span style="font-size: 18px;">⚖️</span>
-                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний аналітик Роман</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Юридичний ШІ-Аналітик</span>
                         </div>
                         <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
                     </div>
@@ -6397,7 +6396,7 @@
             const typingDiv = document.createElement('div');
             typingDiv.className = 'analyst-msg-ai';
             typingDiv.id = 'analyst-typing-indicator';
-            typingDiv.innerHTML = '⚖️ <i>Аналітик Роман опрацьовує матеріали справи та формує правову відповідь...</i>';
+            typingDiv.innerHTML = '⚖️ <i>ШІ-Аналітик аналізує матеріали справи та формує правову відповідь...</i>';
             history.appendChild(typingDiv);
             history.scrollTop = history.scrollHeight;
 
@@ -6444,7 +6443,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
                         <div style="display: flex; align-items: center; gap: 6px;">
                             <span style="font-size: 16px;">⚖️</span>
-                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">Аналітик Роман</span>
+                            <span style="font-weight: 700; color: #ff8585; font-size: 13.5px;">ШІ-Аналітик</span>
                         </div>
                         <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4); white-space: nowrap;">● НА ЗВ'ЯЗКУ</span>
                     </div>
@@ -6472,14 +6471,22 @@
         }
 
         function triggerDocModalAiAnalysis() {
-            if (currentModalDocNum) {
-                closeDocModal();
-                switchTab('ai-analyst');
-                setTimeout(() => {
-                    const query = `Зроби вичерпний правовий аналіз процесуального документа №${currentModalDocNum}, виділи ключові факти обвинувачення, контраргументи захисту та норми КПК України для судового засідання.`;
-                    sendAnalystMessage(query, currentModalDocNum);
-                }, 200);
+            if (!currentModalDocNum) {
+                const titleEl = document.getElementById('doc-modal-title');
+                if (titleEl && titleEl.textContent) {
+                    const match = titleEl.textContent.match(/\d+/);
+                    if (match) currentModalDocNum = parseInt(match[0]);
+                }
             }
+            if (typeof closeDocDetailModal === 'function') {
+                closeDocDetailModal();
+            }
+            switchTab('ai-analyst');
+            setTimeout(() => {
+                const docNum = currentModalDocNum || 1;
+                const query = `Зроби вичерпний правовий аналіз процесуального документа №${docNum}, виділи ключові факти обвинувачення, контраргументи захисту та норми КПК України для судового засідання.`;
+                sendAnalystMessage(query, docNum);
+            }, 250);
         }
 
         function openDocModalByNum(num) {
@@ -6678,11 +6685,15 @@
                 .catch(() => alert('Помилка запуску моніторингу'));
         }
 
-        // Store active document number when modal opens
+        // Store active document number when modal opens (extracting number cleanly if object is passed)
         const originalOpenDocDetailModal = window.openDocDetailModal;
-        window.openDocDetailModal = function(num) {
-            currentModalDocNum = num;
-            if (originalOpenDocDetailModal) originalOpenDocDetailModal(num);
+        window.openDocDetailModal = function(docOrNum) {
+            if (docOrNum && typeof docOrNum === 'object') {
+                currentModalDocNum = docOrNum.num || docOrNum.id || 1;
+            } else {
+                currentModalDocNum = docOrNum;
+            }
+            if (originalOpenDocDetailModal) originalOpenDocDetailModal(docOrNum);
         };
 
 </script>
@@ -6690,8 +6701,8 @@
     <!-- ================================================================= -->
     <!-- FLOATING ACTION BUTTON: AI SITE GUIDE (PAW ICON)                  -->
     <!-- ================================================================= -->
-    <div id="btn-ai-guide-fab" class="ai-guide-fab" onclick="toggleAiGuide()" title="Оператор Артур (онлайн-підтримка)">
-        <span class="ai-guide-fab-badge" title="Оператор онлайн">
+    <div id="btn-ai-guide-fab" class="ai-guide-fab" onclick="toggleAiGuide()" title="ШІ-Оператор «Помічник»">
+        <span class="ai-guide-fab-badge" title="ШІ Онлайн">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#080808" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
@@ -6709,13 +6720,13 @@
             <!-- Drawer Header (Arthur Avatar in Headphones) -->
             <div class="guide-header" style="padding: 12px 16px;">
                 <div class="guide-title" style="display: flex; align-items: center; gap: 12px;">
-                    <img src="/artur_avatar.svg" alt="Оператор Артур" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #E50914; object-fit: cover; box-shadow: 0 0 12px rgba(229,9,20,0.5); flex-shrink: 0;">
+                    <img src="/ai_operator.svg" alt="ШІ-Оператор «Помічник»" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #E50914; object-fit: cover; box-shadow: 0 0 12px rgba(229,9,20,0.5); flex-shrink: 0;">
                     <div>
                         <div style="display: flex; align-items: center; gap: 6px;">
-                            <span style="font-weight: 800; font-size: 16px; color: #fff; letter-spacing: 0.3px;">Оператор Артур</span>
+                            <span style="font-weight: 800; font-size: 16px; color: #fff; letter-spacing: 0.3px;">ШІ-Оператор «Помічник»</span>
                             <span style="font-size: 10px; background: rgba(0,230,118,0.18); color: #00e676; padding: 2px 7px; border-radius: 6px; font-weight: 800; border: 1px solid rgba(0,230,118,0.4);">● НА ЗВ'ЯЗКУ</span>
                         </div>
-                        <div style="font-size: 11.5px; color: #8c8c8c; margin-top: 1px;">Черговий оператор навігації та підтримки</div>
+                        <div style="font-size: 11.5px; color: #8c8c8c; margin-top: 1px;">Інтелектуальний гід та навігатор системою</div>
                     </div>
                 </div>
                 <button class="guide-close-btn" onclick="toggleAiGuide()">&times;</button>
@@ -6727,16 +6738,15 @@
                 <span class="guide-chip" onclick="quickGuideQuery('Як відкрити відеозаписи засідань ВАКС?')">🏛️ Відео суду</span>
                 <span class="guide-chip" onclick="quickGuideQuery('Як користуватися аналітичним радаром?')">📡 Медіа-Радар</span>
                 <span class="guide-chip" onclick="quickGuideQuery('Що можна робити у поточному розділі?')">❓ Цей розділ</span>
-                <span class="guide-chip" onclick="quickGuideQuery('Як звернутися до аналітика Романа?')">⚖️ Аналітик Роман</span>
+                <span class="guide-chip" onclick="quickGuideQuery('Як звернутися до ШІ-аналітика?')">🤖 ШІ-Аналітик</span>
             </div>
 
             <!-- Chat Message Stream -->
             <div id="guide-chat-stream" class="guide-chat-body">
                 <div class="guide-bubble-assistant" style="display: flex; gap: 10px; align-items: flex-start;">
-                    <img src="/artur_avatar.svg" alt="Артур" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E50914; flex-shrink: 0; margin-top: 2px; box-shadow: 0 0 8px rgba(229,9,20,0.4);">
+                    <img src="/ai_operator.svg" alt="ШІ-Оператор" style="width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #E50914; flex-shrink: 0; margin-top: 2px; box-shadow: 0 0 8px rgba(229,9,20,0.4);">
                     <div style="flex: 1;">
-                        <b>Доброго дня! Оператор Артур на зв'язку.</b><br>
-                        Я на робочій зміні і готовий допомогти вам швидко знайти будь-які матеріали справи, 36 протоколів, відео судових засідань ВАКС або підказати, як користуватися функціями порталу. Чим можу допомогти?
+                        🤖 <b>Вітаю! Я інтелектуальний ШІ-оператор системи «Помічник».</b><br>Я готовий допомогти вам миттєво знайти будь-які матеріали справи ВАКС, 36 протоколів, відеозаписи судових дебатів або підказати, як користуватися функціями порталу. Чим можу допомогти?
                     </div>
                 </div>
             </div>

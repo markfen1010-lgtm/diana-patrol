@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: diana-patrol
+    name: pomichnyk
     env: python
     plan: free
     region: frankfurt
