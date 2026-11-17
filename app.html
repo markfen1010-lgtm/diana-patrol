@@ -3079,7 +3079,6 @@
             <div class="email-segmented-bar">
                 <button type="button" class="email-seg-pill active" id="eseg-btn-setup" onclick="switchEmailSubTab('setup')">Налаштувати</button>
                 <button type="button" class="email-seg-pill" id="eseg-btn-schedules" onclick="switchEmailSubTab('schedules')">Розклади</button>
-                <button type="button" class="email-seg-pill" id="eseg-btn-history" onclick="switchEmailSubTab('history')">Історія</button>
             </div>
 
             <!-- SUB-TAB 1: НАЛАШТУВАТИ (Screenshot 1 Layout) -->
@@ -3173,19 +3172,6 @@
                     </div>
                     <div id="active-schedules-list" style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="color: var(--text-muted); font-size: 13px; text-align: center; padding: 14px;">Завантаження...</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SUB-TAB 3: ІСТОРІЯ ТА ДІАГНОСТИКА ПОМИЛОК -->
-            <div id="email-panel-history" class="email-tab-panel">
-                <div class="netflix-card">
-                    <div class="netflix-card-header">
-                        <span class="netflix-card-title">📜 Журнал відправлень та діагностика</span>
-                        <button class="btn-subtle" onclick="loadEmailLogs()">🔄 Оновити</button>
-                    </div>
-                    <div id="email-history-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;">
-                        <div style="color: var(--text-muted); font-size: 13px; text-align: center; padding: 14px;">Завантаження журналу...</div>
                     </div>
                 </div>
             </div>
@@ -3448,12 +3434,22 @@
                 <div id="admin-sec-smtp" class="admin-section">
                     <div class="netflix-card" style="margin-bottom: 16px;">
                         <h3 style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px;">✉️ Керування поштовим роботом та SMTP</h3>
-                        <p style="font-size: 13px; color: #aaa; margin-bottom: 14px;">Налаштування поштового шлюзу, Google Apps Script релею та авторозкладів перенесено сюди із публічного інтерфейсу.</p>
+                        <p style="font-size: 13px; color: #aaa; margin-bottom: 14px;">Конфігурація SMTP, Google Webhook та захищений журнал відправлень із діагностикою помилок.</p>
                         
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <button class="btn-netflix-primary" onclick="openAdminSmtpModal()">⚙️ Відкрити налаштування SMTP / Webhook</button>
-                            <button class="btn-netflix-secondary" onclick="switchTab('email')">📅 Переглянути розклади та журнал</button>
                             <button class="btn-netflix-secondary" onclick="triggerAdminMonitoringScan()">📡 Запустити цикл моніторингу зараз</button>
+                        </div>
+                    </div>
+
+                    <!-- ІСТОРІЯ ТА ДІАГНОСТИКА ПОМИЛОК (ТІЛЬКИ ДЛЯ АДМІНІСТРАТОРА) -->
+                    <div class="netflix-card">
+                        <div class="netflix-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                            <span class="netflix-card-title" style="font-size: 16px; font-weight: 700; color: #fff;">📜 Журнал відправлень та діагностика</span>
+                            <button class="btn-subtle" onclick="loadEmailLogs()">🔄 Оновити журнал</button>
+                        </div>
+                        <div id="email-history-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 480px; overflow-y: auto;">
+                            <div style="color: var(--text-muted); font-size: 13px; text-align: center; padding: 14px;">Завантаження журналу...</div>
                         </div>
                     </div>
                 </div>
@@ -5334,14 +5330,13 @@
         let currentSchedReportType = 'COMPLETE_PACKAGE';
 
         function switchEmailSubTab(subTab) {
-            ['setup', 'schedules', 'history'].forEach(tab => {
+            ['setup', 'schedules'].forEach(tab => {
                 const btn = document.getElementById('eseg-btn-' + tab);
                 const panel = document.getElementById('email-panel-' + tab);
                 if (btn) btn.classList.toggle('active', tab === subTab);
                 if (panel) panel.classList.toggle('active', tab === subTab);
             });
             if (subTab === 'schedules') loadSchedules();
-            if (subTab === 'history') loadEmailLogs();
         }
 
         function selectFrequencyPill(freq) {
@@ -6571,6 +6566,7 @@
             if (targetSec) targetSec.classList.add('active');
 
             if (secId === 'overview') loadAdminOverview();
+            if (secId === 'smtp') loadEmailLogs();
         }
 
         function initAdminView() {
